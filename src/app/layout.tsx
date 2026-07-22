@@ -24,6 +24,7 @@ const GTM_ID = "GTM-PQBFMM3K";
 const META_PIXEL_ID = "1494879215999837";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://book.woodcraftingllc.com"),
   title:
     "Wood Crafting — Project-Scale Reclaimed Wood Sourcing for Builders & Architects",
   description:

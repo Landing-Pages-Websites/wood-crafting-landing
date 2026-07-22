@@ -169,8 +169,12 @@ export function FormCard({
     const route =
       routeSlug || (typeof window !== "undefined" ? window.location.pathname : "/");
     // Mega optimizer event FIRST, then the required GTM dataLayer signal.
+    // Fire both the canonical "form_submit" (GTM-PQBFMM3K conversion trigger /
+    // Mega QA) and the legacy "form_submission" name so either trigger works.
+    window.MegaTag?.trackEvent?.("form_submit", { form_route: route });
     window.MegaTag?.trackEvent?.("form_submission", { form_route: route });
     window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "form_submit", form_route: route });
     window.dataLayer.push({ event: "form_submission", form_route: route });
   };
 
