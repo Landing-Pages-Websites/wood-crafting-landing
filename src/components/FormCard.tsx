@@ -29,7 +29,9 @@ type FieldKey =
   | "last_name"
   | "email"
   | "phone"
-  | "product_needed";
+  | "company"
+  | "product_needed"
+  | "project_needs";
 
 interface FormState {
   first_name: string;
@@ -53,13 +55,15 @@ const INITIAL: FormState = {
 
 type FieldErrors = Partial<Record<FieldKey, string>>;
 
-// company + project_needs are optional and never block submission.
+// company + project_needs are required — they self-qualify professional buyers.
 const REQUIRED_ORDER: FieldKey[] = [
   "first_name",
   "last_name",
   "email",
   "phone",
+  "company",
   "product_needed",
+  "project_needs",
 ];
 
 function validateField(key: FieldKey, value: string): string | undefined {
@@ -81,8 +85,14 @@ function validateField(key: FieldKey, value: string): string | undefined {
       if (!NANP_RE.test(digits)) return "Please enter a valid US phone number.";
       return undefined;
     }
+    case "company":
+      return value.trim() ? undefined : "Company or organization is required.";
     case "product_needed":
       return value ? undefined : "Please select a product line.";
+    case "project_needs":
+      return value.trim()
+        ? undefined
+        : "Please describe your project needs and quantity.";
   }
 }
 
@@ -191,7 +201,9 @@ export function FormCard({
         last_name: true,
         email: true,
         phone: true,
+        company: true,
         product_needed: true,
+        project_needs: true,
       });
       const firstBad = REQUIRED_ORDER.find((k) => allErrors[k]);
       if (firstBad) {
@@ -401,22 +413,32 @@ export function FormCard({
         )}
       </div>
 
-      {/* Company (optional) */}
+      {/* Company (required) */}
       <div>
         <label htmlFor={`${idPrefix}-company`} className="sr-only">
-          Company (optional)
+          Company / Organization
         </label>
         <input
+          ref={(el) => { fieldRefs.current.company = el; }}
           id={`${idPrefix}-company`}
           name="company"
           type="text"
+          required
           autoComplete="organization"
-          placeholder="Company (optional)"
+          placeholder="Company / Organization"
           value={data.company}
           onChange={(e) => update("company", e.target.value)}
-          className={fieldCls}
+          onBlur={(e) => markTouched("company", e.target.value)}
+          className={inputCls("company")}
+          aria-invalid={showErr("company") || undefined}
+          aria-describedby={showErr("company") ? errId("company") : undefined}
           disabled={submitting}
         />
+        {showErr("company") && (
+          <p id={errId("company")} role="alert" aria-live="polite" className="lp-field-error">
+            {errors.company}
+          </p>
+        )}
       </div>
 
       {/* Product needed (required select) */}
@@ -453,21 +475,31 @@ export function FormCard({
         )}
       </div>
 
-      {/* Project needs (optional textarea) */}
+      {/* Project needs (required textarea) */}
       <div>
         <label htmlFor={`${idPrefix}-project_needs`} className="sr-only">
-          Project details (optional)
+          Project details
         </label>
         <textarea
+          ref={(el) => { fieldRefs.current.project_needs = el; }}
           id={`${idPrefix}-project_needs`}
           name="project_needs"
           rows={3}
-          placeholder="Project details — scope, rough quantities, timeline (optional)"
+          required
+          placeholder="Project details — scope, rough quantities, timeline"
           value={data.project_needs}
           onChange={(e) => update("project_needs", e.target.value)}
-          className={`${fieldCls} resize-none`}
+          onBlur={(e) => markTouched("project_needs", e.target.value)}
+          className={`${inputCls("project_needs")} resize-none`}
+          aria-invalid={showErr("project_needs") || undefined}
+          aria-describedby={showErr("project_needs") ? errId("project_needs") : undefined}
           disabled={submitting}
         />
+        {showErr("project_needs") && (
+          <p id={errId("project_needs")} role="alert" aria-live="polite" className="lp-field-error">
+            {errors.project_needs}
+          </p>
+        )}
       </div>
 
       <button
