@@ -22,6 +22,16 @@ export const BRAND = {
 
 export const CURRENT_YEAR = new Date().getFullYear();
 
+// ─── Name / Address / Phone (footer NAP) ───
+export const NAP = {
+  name: "Wood Crafting",
+  street: "76 Main St",
+  city: "Millerton",
+  state: "NY",
+  zip: "12546",
+  hours: "Mon–Fri, 7:00 AM – 5:00 PM",
+};
+
 // ─── Hero ───
 export const HERO = {
   chips: [
