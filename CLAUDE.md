@@ -44,10 +44,22 @@ full rubric in [references/5-design-quality.md](skills/web-coding-os/references/
 - **Imagery & motion:** real/on-brand imagery or custom gradients/illustration (never obvious
   stock); subtle purposeful motion (150–250ms, scroll-reveal, respects `prefers-reduced-motion`).
 - **Responsive:** mobile-first, verified at 360px → desktop. No layout shift, no overflow.
+- **Functional honesty:** anything styled as a control must have a complete useful outcome
+  (selected/result/error/success as applicable). Never ship decorative radios, filters,
+  quizzes, calculators, or forms that accept input and then do nothing.
+- **Identity:** use the real logo; verify the complete lockup at its actual rendered size and
+  on every background. The mark and lettering must remain separately legible.
+- **Image roles:** inspect every source at full resolution and in desktop/mobile crops. Do not
+  reuse one image for unrelated semantic roles, and reject generated blur, invented objects,
+  impossible scene details, or damaged faces.
+- **Motifs:** recurring lines, paths, or diagrams are one system. Keep stroke widths and seam
+  positions continuous; endpoint dots/caps appear only where the motif truly terminates.
 
 **Forbidden "generic-AI tells" (auto-fail the design-review gate):** centered-hero + three equal
 feature cards, stock indigo-500 buttons, system-font-only, lorem ipsum shipped, emoji as icons,
 unstyled native inputs, walls of equal-weight text, missing hover/focus/empty/loading states.
+Decorative all-caps eyebrow fragments are not a default section requirement: use them only when
+they orient the reader; otherwise write a useful subtitle or remove them.
 
 ## Conversion (every LP and marketing page)
 Design for the visitor's decision, not just aesthetics. See `landing-page-cro` / `landing-page-architect`.
