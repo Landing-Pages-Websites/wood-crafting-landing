@@ -6,16 +6,16 @@ import { DualCTA } from "@/components/DualCTA";
 import { Icon } from "@/components/icons";
 import { FAQ } from "@/lib/content";
 
-export function Faq() {
+export function Faq(): React.ReactElement {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-20 md:py-28 bg-white">
+    <section id="faq" className="relative py-20 md:py-28 bg-[var(--color-surface)]">
       <div className="mx-auto max-w-4xl px-5 md:px-8">
         <Reveal className="text-center">
-          <p className="eyebrow">Before you request a demo</p>
+          <p className="eyebrow">Before you request a quote</p>
           <h2 className="mt-3 font-display text-[2rem] md:text-4xl lg:text-[2.7rem] leading-[1.1] text-[var(--color-text)]">
-            Questions distributors ask us.
+            Questions builders ask us.
           </h2>
         </Reveal>
 

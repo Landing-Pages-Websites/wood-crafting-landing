@@ -4,17 +4,17 @@ import { useTracking } from "@/hooks/useTracking";
 import { QueryParamPersistence } from "@/components/QueryParamPersistence";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { PainPoints } from "@/components/PainPoints";
-import { Capabilities } from "@/components/Capabilities";
-import { WhyPurposeBuilt } from "@/components/WhyPurposeBuilt";
-import { ProofBar } from "@/components/ProofBar";
+import { TrustBar } from "@/components/ProofBar";
+import { Products } from "@/components/Capabilities";
+import { WhyWoodCrafting } from "@/components/WhyPurposeBuilt";
+import { WhoWeServe } from "@/components/PainPoints";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { TRACKING } from "@/lib/content";
 
-export default function Page() {
+export default function Page(): React.ReactElement {
   useTracking({
     siteKey: TRACKING.siteKey,
     siteId: TRACKING.siteId,
@@ -22,14 +22,14 @@ export default function Page() {
   });
 
   return (
-    <main className="overflow-x-hidden bg-white">
+    <main className="overflow-x-hidden bg-[var(--color-bg)]">
       <QueryParamPersistence />
       <Header />
       <Hero />
-      <PainPoints />
-      <Capabilities />
-      <WhyPurposeBuilt />
-      <ProofBar />
+      <TrustBar />
+      <Products />
+      <WhyWoodCrafting />
+      <WhoWeServe />
       <Faq />
       <FinalCta />
       <SiteFooter />

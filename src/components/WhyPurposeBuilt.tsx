@@ -1,88 +1,112 @@
 "use client";
 
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { DualCTA } from "@/components/DualCTA";
 import { Icon } from "@/components/icons";
-import { WHY, BRAND } from "@/lib/content";
+import { WHY, HOW_IT_WORKS } from "@/lib/content";
 
-export function WhyPurposeBuilt() {
+export function WhyWoodCrafting(): React.ReactElement {
   return (
     <section
-      id="why-purpose-built"
-      className="relative isolate overflow-hidden bg-[var(--color-navy)] py-20 md:py-28 text-white"
+      id="why"
+      className="relative isolate overflow-hidden bg-[var(--color-charcoal)] py-20 text-white md:py-28"
     >
-      <div className="absolute inset-0 -z-10 tex-grid opacity-40" />
-      <div className="absolute -top-40 -right-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-[var(--color-primary)]/20 blur-3xl" />
+      <div className="absolute inset-0 -z-10 tex-grain opacity-30" />
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-          <Reveal className="lg:col-span-5">
-            <p className="eyebrow text-[var(--color-accent)]">Why purpose-built wins</p>
-            <h2 className="mt-3 font-display text-[2rem] md:text-4xl lg:text-[2.8rem] leading-[1.1] text-white">
-              {WHY.headline}
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-white/75">{WHY.body}</p>
+        {/* Why us */}
+        <Reveal className="max-w-3xl">
+          <p className="eyebrow text-[var(--color-primary)]">Why Wood Crafting</p>
+          <h2 className="mt-3 font-display text-[2rem] leading-[1.12] text-white md:text-4xl lg:text-[2.7rem]">
+            {WHY.headline}
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-white/70">{WHY.intro}</p>
+        </Reveal>
 
-            {/* Stat callout */}
-            <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-              <span className="font-display text-5xl font-extrabold text-[var(--color-accent)] leading-none">
-                {WHY.statValue}
-              </span>
-              <span className="text-sm leading-snug text-white/70">{WHY.statLabel}</span>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+          {WHY.pillars.map((pillar, i) => (
+            <Reveal key={pillar.title} delay={i * 70}>
+              <article className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 md:p-7">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-primary)]/20 text-[var(--color-primary)]">
+                  <Icon name={pillar.icon} className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 font-display text-xl text-white">{pillar.title}</h3>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-white/65">{pillar.body}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Sourcing story */}
+        <div className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-12 lg:gap-14 lg:items-center">
+          {/* Alternating real photos */}
+          <Reveal className="lg:col-span-6">
+            <div className="grid grid-cols-5 gap-4">
+              <div className="relative col-span-3 aspect-[4/5] overflow-hidden rounded-2xl shadow-card-lg ring-1 ring-white/10">
+                <Image
+                  src="/images/estate-aerial.jpg"
+                  alt="Aerial view of a reclaimed-wood clad estate and clubhouse"
+                  fill
+                  sizes="(min-width: 1024px) 28vw, 55vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative col-span-2 mt-10 aspect-[3/4] overflow-hidden rounded-2xl shadow-card-lg ring-1 ring-white/10">
+                <Image
+                  src="/images/siding-gray.jpg"
+                  alt="Reclaimed gray barn-board siding, weathered surface detail"
+                  fill
+                  sizes="(min-width: 1024px) 20vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </Reveal>
 
-          {/* Comparison */}
-          <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-            {WHY.comparison.map((col, i) => {
-              const isTireServ = col.side === "tireserv";
-              return (
-                <Reveal key={col.side} delay={i * 90}>
-                  <div
-                    className={`h-full rounded-2xl p-6 ${
-                      isTireServ
-                        ? "bg-white text-[var(--color-text)] shadow-card-lg ring-1 ring-[var(--color-primary)]"
-                        : "border border-white/12 bg-white/[0.03] text-white/85"
-                    }`}
-                  >
-                    <p
-                      className={`font-display text-lg font-semibold ${
-                        isTireServ ? "text-[var(--color-primary)]" : "text-white/60"
-                      }`}
-                    >
-                      {col.label}
-                    </p>
-                    <ul className="mt-4 space-y-3">
-                      {col.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-2.5 text-sm leading-relaxed">
-                          <span
-                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                              isTireServ
-                                ? "bg-[var(--color-primary)] text-white"
-                                : "bg-white/10 text-white/50"
-                            }`}
-                          >
-                            <Icon
-                              name={isTireServ ? "check" : "x"}
-                              className="h-3 w-3"
-                              strokeWidth={isTireServ ? 3 : 2.2}
-                            />
-                          </span>
-                          <span className={isTireServ ? "text-[var(--color-muted)]" : ""}>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          <div className="lg:col-span-6">
+            <Reveal>
+              <p className="eyebrow text-[var(--color-primary)]">From structure to site</p>
+              <p className="mt-3 text-lg leading-relaxed text-white/80">{HOW_IT_WORKS.intro}</p>
+            </Reveal>
+
+            <ol className="mt-8 space-y-6">
+              {HOW_IT_WORKS.steps.map((step, i) => (
+                <Reveal key={step.n} delay={i * 60}>
+                  <li className="flex gap-4">
+                    <span className="font-display text-lg font-bold leading-none text-[var(--color-primary)]">
+                      {step.n}
+                    </span>
+                    <div className="border-l border-white/10 pl-4">
+                      <h3 className="font-display text-lg text-white">{step.title}</h3>
+                      <p className="mt-1.5 text-[15px] leading-relaxed text-white/65">{step.body}</p>
+                    </div>
+                  </li>
                 </Reveal>
-              );
-            })}
+              ))}
+            </ol>
+
+            <Reveal>
+              <div className="mt-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                  Processing options
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {HOW_IT_WORKS.processing.map((opt) => (
+                    <li
+                      key={opt}
+                      className="rounded-full border border-white/15 bg-white/[0.05] px-3.5 py-1.5 text-sm font-medium text-white/85"
+                    >
+                      {opt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           </div>
         </div>
 
-        <Reveal delay={140}>
-          <p className="mt-10 text-center text-sm text-white/50">
-            {BRAND.company} · {BRAND.tagline}
-          </p>
+        <Reveal delay={100}>
           <DualCTA align="center" onDark />
         </Reveal>
       </div>
