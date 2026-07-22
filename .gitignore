@@ -31,3 +31,9 @@ next-env.d.ts
 
 # project-local
 logs/
+
+# web-coding-os loadout (not part of the deployed app)
+.claude/
+.mcp.json
+CLAUDE.md
+.wco-no-local-browser
