@@ -1,28 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* QBC Systems / TireServ — brand tokens (from design_system color_roles) */
-  --color-primary: #0057e7;        /* royal blue — primary CTA */
-  --color-primary-hover: #004ac4;
-  --color-primary-active: #003da2;
-  --color-primary-disabled: #99bcf5;
-  --color-navy: #0a2540;           /* secondary — dark bands */
-  --color-navy-deep: #0a1628;      /* deepest text / footer */
-  --color-accent: #15befe;         /* cyan — focus rings, stat callouts */
+  /* Wood Crafting — brand tokens (from design_system color_roles) */
+  --color-primary: #c60a38;        /* crimson — primary CTA */
+  --color-primary-hover: #a50830;
+  --color-primary-active: #8d0727;
+  --color-primary-disabled: #c9bfb4;
 
-  /* Neutrals */
-  --color-bg: #ffffff;
-  --color-surface: #f4f7fb;
-  --color-border: #e3e9f2;
-  --color-text: #0a1628;
-  --color-muted: #5b6b82;
-  --color-muted-soft: #6b7280;
+  --color-charcoal: #3a3532;       /* secondary — dark bands, headings */
+  --color-charcoal-deep: #1c1a18;  /* deepest text / footer */
+  --color-accent: #8d0727;         /* deep crimson — hovers, accents */
+
+  /* Neutrals — warm paper family */
+  --color-bg: #f7f3ec;             /* warm paper page background */
+  --color-surface: #ffffff;        /* raised cards / panels */
+  --color-surface-2: #f5f1ea;      /* alt warm surface */
+  --color-border: #e2dacd;         /* hairline warm border */
+  --color-text: #1c1a18;           /* near-black warm ink */
+  --color-muted: #6b635c;          /* muted warm gray */
+  --color-muted-soft: #8a8078;
 
   /* States */
-  --color-error: #d92d20;
-  --color-success: #12805c;
+  --color-error: #b4231f;
+  --color-success: #3e7c4a;
 
-  --font-display: var(--font-display-active), "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-active), "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-body-active), "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -38,14 +40,21 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  color: inherit;
-  letter-spacing: -0.015em;
-  font-weight: 700;
+/* Base heading typography — kept in @layer base so Tailwind text-* / color
+   utilities still win when applied directly on an element. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  h1 { letter-spacing: -0.025em; line-height: 1.05; }
+  h2 { letter-spacing: -0.02em; line-height: 1.1; }
+  h3 { letter-spacing: -0.01em; line-height: 1.2; font-weight: 600; }
+  h4, h5, h6 { line-height: 1.35; font-weight: 600; }
 }
 
-/* Eyebrow label (FormCard + sections rely on this class) */
+/* Eyebrow label (crimson, tracked caps) */
 .eyebrow {
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -55,51 +64,44 @@ h1, h2, h3, h4 {
   color: var(--color-primary);
 }
 
-/* Layered soft CTA shadow — keyed to royal blue */
+/* Layered soft CTA shadow — keyed to crimson */
 .shadow-cta {
-  box-shadow: 0 12px 28px -10px rgba(0, 87, 231, 0.45),
-              0 4px 10px -4px rgba(10, 22, 40, 0.12);
+  box-shadow: 0 12px 28px -10px rgba(198, 10, 56, 0.42),
+              0 4px 10px -4px rgba(28, 26, 24, 0.14);
 }
 
 /* Consistent soft card elevation */
 .shadow-card {
-  box-shadow: 0 1px 2px rgba(10, 22, 40, 0.04),
-              0 10px 30px -18px rgba(10, 22, 40, 0.28);
+  box-shadow: 0 1px 2px rgba(28, 26, 24, 0.04),
+              0 12px 32px -20px rgba(28, 26, 24, 0.30);
 }
 
 .shadow-card-lg {
-  box-shadow: 0 2px 6px rgba(10, 22, 40, 0.05),
-              0 26px 60px -28px rgba(10, 22, 40, 0.38);
+  box-shadow: 0 2px 6px rgba(28, 26, 24, 0.06),
+              0 28px 64px -30px rgba(28, 26, 24, 0.42);
 }
 
-/* Hairline accent divider */
-.hr-accent {
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
-}
-
-/* Subtle grid texture for navy bands */
-.tex-grid {
+/* Warm paper texture wash for dark charcoal bands */
+.tex-grain {
   background-image:
-    linear-gradient(rgba(21, 190, 254, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(21, 190, 254, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 6px 6px;
 }
 
 /* Anchor offset so sections land below the fixed header */
-html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-section[id] { scroll-margin-top: 84px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+section[id] { scroll-margin-top: 88px; }
 
-/* ─── Inline per-field validation (HARD RULE #8) — restyled to QBC palette ─── */
+/* ─── Inline per-field validation (crimson-warm palette) ─── */
 .lp-input-error {
   border-color: var(--color-error) !important;
-  background-color: #fef3f2 !important;
-  box-shadow: 0 0 0 2px rgba(217, 45, 32, 0.16);
+  background-color: #fbf0ef !important;
+  box-shadow: 0 0 0 2px rgba(180, 35, 31, 0.16);
 }
 
 .lp-input-error:focus {
   border-color: var(--color-error) !important;
-  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.26);
+  box-shadow: 0 0 0 3px rgba(180, 35, 31, 0.24);
   outline: none;
 }
 

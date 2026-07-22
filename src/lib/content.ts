@@ -1,218 +1,292 @@
-// Site-wide content + config for QBC Systems — TireServ ERP demo LP.
-// Single source of truth for copy, phone, form options, and tracking IDs.
+// Site-wide content + config for Wood Crafting — reclaimed-wood project sourcing LP.
+// Single source of truth for copy, phone, address, form options, and tracking IDs.
 
-export const PHONE = "(716) 691-5201";
-export const PHONE_HREF = "tel:7166915201";
+export const PHONE = "(845) 373-8020";
+export const PHONE_HREF = "tel:8453738020";
 
 export const CTA = {
-  primary: "Get a Free Demo",
-  secondary: "Call (716) 691-5201",
-  demoAnchor: "#demo",
+  primary: "Request a Project Quote",
+  secondary: "Call (845) 373-8020",
+  formAnchor: "#quote",
+  heroFormAnchor: "#hero",
 };
 
 export const BRAND = {
-  company: "QBC Systems",
-  product: "TireServ",
-  tagline: "Software with a Personal Touch",
-  yearsInBusiness: 48,
-  address: "25 Hazelwood Dr., Amherst, NY 14228",
-  email: "patrick@qbc.com",
-  emailHref: "mailto:patrick@qbc.com",
+  company: "Wood Crafting",
+  legalName: "Wood Crafting LLC",
+  tagline: "Authentic reclaimed wood, supplied at project scale.",
+  region: "Serving the Northeast",
+  email: "info@woodcraftingllc.com",
+  emailHref: "mailto:info@woodcraftingllc.com",
 };
 
 export const CURRENT_YEAR = new Date().getFullYear();
 
+// ─── Hero ───
 export const HERO = {
   chips: [
-    `${BRAND.yearsInBusiness} years in tire distribution`,
-    "Purpose-built ERP",
-    "Cloud-based — nothing to install",
+    "100% reclaimed material",
+    "Locally salvaged — Northeast & Midwest",
+    "Project-scale supply",
   ],
-  h1Lead: "The ERP built exclusively for",
-  h1Accent: "tire & automotive wholesale distributors.",
+  h1Lead: "Authentic reclaimed wood,",
+  h1Accent: "supplied at the scale your project demands.",
   subhead:
-    "Outgrown QuickBooks or a patched-together legacy system? TireServ unifies POS, inventory, purchasing, AR, AP, GL, and reporting in one cloud system — purpose-built over 48 years for tire distribution, not a generic ERP bent to fit.",
+    "Wood Crafting is the professional sourcing partner for project-scale reclaimed wood in the Northeast — barn beams, siding, board, and corral fencing pulled from centuries-old structures and milled to your spec. Not a retail lumber yard. Not a DIY marketplace. The material, the volume, and the know-how to spec an entire build.",
 };
 
-// ─── Pain points (PAS — Problem / Agitate) ───
-export const PAIN_INTRO =
-  "If any of this sounds familiar, you've outgrown your current system.";
-
-export const PAIN_POINTS = [
+// ─── Trust / credibility bar ───
+export const TRUST_STATS = [
   {
-    id: "manual-workarounds",
-    icon: "clipboard",
-    title: "Manual workarounds everywhere",
-    body: "Re-keying orders by hand, spreadsheets bolted onto your accounting software, copy-paste between systems that were never meant to talk. Every workaround is another place errors creep in — and errors cost money.",
+    icon: "leaf",
+    value: "100% Reclaimed",
+    label: "Every board salvaged from real structures — never new-cut or imitation.",
   },
   {
-    id: "inventory-blind-spots",
-    icon: "boxes",
-    title: "Inventory blind spots",
-    body: "You're never quite sure what's really in stock across your branches. Overselling, dead stock, and frantic phone calls to check availability are just part of the day. The numbers on the screen and the tires on the rack don't match.",
+    icon: "map",
+    value: "Locally Salvaged",
+    label: "Barns, corrals, and agricultural buildings across the Northeast & Midwest.",
   },
   {
-    id: "stale-pricing",
-    icon: "trending",
-    title: "No real-time wholesale pricing",
-    body: "Pricing and availability from your suppliers' wholesale platforms live in a separate window — updated by hand, always a little stale. Missed margin and quoting errors follow when the numbers can't keep up with the market.",
-  },
-];
-
-// ─── Capabilities (PAS — Solution) ───
-export const CAPABILITIES_INTRO =
-  "TireServ replaces the patchwork with one system your whole operation runs on — every module built for how tire and automotive distributors actually work.";
-
-// Core ERP modules — the single-system stack.
-export const CORE_MODULES = [
-  { icon: "cart", title: "Point of Sale", body: "Fast, tire-aware counter and phone sales that flow straight into inventory and accounting." },
-  { icon: "boxes", title: "Inventory Management", body: "Real-time stock across every branch, so what's on screen matches what's on the rack." },
-  { icon: "truck", title: "Purchasing", body: "Streamlined purchase orders and receiving tied directly to demand and stock levels." },
-  { icon: "receipt", title: "Accounts Receivable", body: "Track customer balances, terms, and collections without a separate ledger." },
-  { icon: "wallet", title: "Accounts Payable", body: "Manage vendor bills and payments in the same system that runs your sales floor." },
-  { icon: "ledger", title: "General Ledger", body: "A full GL underneath it all — no exporting to a bolt-on accounting package." },
-  { icon: "chart", title: "Reporting", body: "100+ standard reports covering sales, inventory, and financials out of the box." },
-];
-
-// Differentiators — the modern, tire-specific capabilities.
-export const DIFFERENTIATORS = [
-  {
-    icon: "sync",
-    title: "Real-time wholesale integration",
-    body: "TireServ connects directly to major wholesale tire platforms, so live pricing and availability flow into your system automatically — no manual updates, no stale numbers.",
+    icon: "layers",
+    value: "Project Scale",
+    label: "Volume and consistency to spec an entire elevation, frame, or interior.",
   },
   {
-    icon: "mobile",
-    title: "Mobile order entry",
-    body: "Write orders from anywhere — the sales floor, a customer's shop, the road — on a tablet or phone, and watch them land in TireServ instantly.",
-    image: "/images/mobile-order.jpg",
-  },
-  {
-    icon: "send",
-    title: "Telegram-based reporting",
-    body: "Get the numbers you care about pushed straight to your phone through Telegram — daily figures and key reports without logging in.",
-  },
-  {
-    icon: "cloud",
-    title: "Cloud-based, browser-only",
-    body: "TireServ runs entirely in your browser. Nothing to install, nothing to maintain on-site — open it on any device and get to work.",
+    icon: "mill",
+    value: "Custom Milling",
+    label: "Milled to your profiles and processed as-is, de-nailed, or power-washed.",
   },
 ];
 
-// ─── Why purpose-built (differentiation, dark band) ───
+// ─── Product lines (each gets full 80–150 word body copy) ───
+export const PRODUCTS = [
+  {
+    id: "reclaimed-beams",
+    eyebrow: "Structural & feature timber",
+    title: "Reclaimed Beams",
+    image: "/images/beams-interior.jpg",
+    imageAlt:
+      "Reclaimed timber-frame beams spanning a vaulted great room interior",
+    body: "Hand-hewn and sawn timbers pulled from 19th- and early-20th-century barns and agricultural structures across the Northeast and Midwest. Every beam carries the marks of its working life — axe scores, mortise pockets, weathered patina, and the density that only old-growth timber delivers. We identify and match the species that define reclaimed barn stock, and we carry the volume to supply a full timber-frame or feature-beam package rather than a one-off stick. Specify them as-is for maximum character, de-nailed and cleaned for interior exposure, or power-washed to bring the grain forward. Send us your spans and profiles and we source to your drawings.",
+    specs: ["Hand-hewn & sawn", "Old-growth density", "Custom spans & profiles"],
+  },
+  {
+    id: "siding-paneling",
+    eyebrow: "Exterior & interior cladding",
+    title: "Siding & Paneling",
+    image: "/images/siding-red-texture.jpg",
+    imageAlt: "Authentic weathered red barn-board siding with original paint",
+    body: "Weathered exterior siding and interior paneling with the original paint, patina, and saw texture intact — the surface you cannot fake with a stain or a wire brush. We supply authentic red, gray, and mixed-tone boards in runs consistent enough to clad a full elevation or wrap an interior feature wall, sorted for the color story your design calls for. Because the material is reclaimed, every board reads differently in raking light, giving finished walls the depth that manufactured products only imitate. Choose your processing level and milling profile, from raw as-found character to a cleaned, install-ready face, and we'll pull to quantity for the whole scope.",
+    specs: ["Original paint & patina", "Sorted by color", "As-is → install-ready"],
+  },
+  {
+    id: "reclaimed-barn-board",
+    eyebrow: "Weathered surface board",
+    title: "Reclaimed Barn Board",
+    image: "/images/barnboard-gray-texture.jpg",
+    imageAlt: "Reclaimed gray barn board showing knots and weathered grain",
+    body: "Sun- and weather-grayed barn board with the knots, checks, and grain that come only from decades exposed to Northeast winters. This is the workhorse of a reclaimed project — accent walls, ceilings, millwork, cabinetry faces, and casework — supplied in the widths and lengths a real installation needs, not a bundle of hobby offcuts. We grade and sort for tone and texture so your crew opens consistent material on site, and we de-nail and process to the level your application requires. When you need more, we can match back to the same salvage character so a phase-two order reads as one continuous run.",
+    specs: ["Naturally grayed", "Graded & sorted", "De-nailed on request"],
+  },
+  {
+    id: "reclaimed-corral-fencing",
+    eyebrow: "Rugged salvaged stock",
+    title: "Reclaimed Corral Fencing",
+    image: "/images/corral-exterior.jpg",
+    imageAlt:
+      "Reclaimed corral and gray board cladding on a premium home exterior with stone base",
+    body: "Boards salvaged from working horse corrals and livestock enclosures — the most weathered, character-dense material we source. Years of use, sun, and stock contact give these boards a depth of texture that reads as instantly authentic on exterior cladding, entry features, and rugged interior accents. Because it is genuine corral stock, the grain, checking, and worn edges are real, not distressed by machine. We sort and process for the finish you want and supply the quantity to carry a feature or a full exterior, so the character stays consistent from the first board to the last. Tell us the look you're after and we'll source to match.",
+    specs: ["Genuine corral stock", "Deep worn texture", "Sorted to quantity"],
+  },
+];
+
+// ─── Why Wood Crafting (differentiators) ───
 export const WHY = {
-  headline: "Purpose-built for tire distribution — not a generic ERP with a tire skin.",
-  body: "For 48 years, we've built software exclusively for tire and automotive wholesale distributors. TireServ speaks your language out of the box — tire brands, wholesale platforms, and the distribution workflows you run every day.",
-  statValue: String(BRAND.yearsInBusiness),
-  statLabel: "years building for tire distribution — and nothing else",
-  comparison: [
+  headline: "Authentic material, at project scale, from people who know the wood.",
+  intro:
+    "Reclaimed wood is easy to claim and hard to actually supply. What separates a professional sourcing partner is provenance you can trace, volume you can build on, and the expertise to spec it correctly the first time.",
+  pillars: [
     {
-      side: "generic",
-      label: "A generic ERP",
-      points: [
-        "You bend your business to fit the software",
-        "Tire and wholesale workflows bolted on after the fact",
-        "Integrations and customizations you pay to build",
-      ],
+      icon: "leaf",
+      title: "Genuine authenticity",
+      body: "Every board is 100% reclaimed from a real structure — never new lumber distressed to look old, never printed imitation. The patina, paint, and wear are the record of the wood's working life.",
     },
     {
-      side: "tireserv",
-      label: "TireServ",
-      points: [
-        "The software was built around your business",
-        "Tire brands and wholesale platforms understood natively",
-        "Real-time wholesale integration and reporting included",
-      ],
+      icon: "map",
+      title: "Traceable provenance",
+      body: "We salvage from barns, horse corrals, and agricultural buildings across the Northeast and Midwest — structures that stood for generations. You get material with a real origin, not an anonymous mixed lot.",
+    },
+    {
+      icon: "compass",
+      title: "Species-level expertise",
+      body: "We identify species, read grain and density, and match tone and texture across a run — so what ships is right for the application and reads as one consistent material on site.",
+    },
+    {
+      icon: "layers",
+      title: "Project-scale capability",
+      body: "We carry the volume and the custom-milling capacity to supply an entire elevation, frame, or interior package — with the consistency a professional install demands.",
     },
   ],
 };
 
-// ─── Proof points ───
-export const PROOF_STATS = [
-  { value: `${BRAND.yearsInBusiness} Years`, label: "In business" },
-  { value: "Purpose-Built", label: "For tire distribution" },
-  { value: "Cloud-Based", label: "Browser-only, nothing to install" },
-  { value: "Real-Time", label: "Wholesale platform integration" },
-];
+// ─── How it works — sourcing & processing story ───
+export const HOW_IT_WORKS = {
+  intro:
+    "From a standing structure to material on your site, every step is handled by people who source and process reclaimed wood for a living.",
+  steps: [
+    {
+      n: "01",
+      title: "Salvage at the source",
+      body: "We reclaim from barns, corrals, and agricultural structures across the Northeast and Midwest — carefully deconstructing so the wood keeps the character that centuries of use gave it.",
+    },
+    {
+      n: "02",
+      title: "Sort, grade & identify",
+      body: "Incoming stock is sorted by species, tone, and texture and graded for its best use — beams, siding, board, or corral stock — so your order arrives consistent, not a random mix.",
+    },
+    {
+      n: "03",
+      title: "Process to your spec",
+      body: "Choose the finish: as-is for maximum character, de-nailed for safe handling and interior use, or power-washed to open up the grain. Then we mill to the profiles and dimensions your drawings call for.",
+    },
+    {
+      n: "04",
+      title: "Supply to quantity",
+      body: "We pull to the volume your scope needs and can match back to the same salvage character for later phases — so the whole project reads as one continuous material.",
+    },
+  ],
+  processing: ["As-is", "De-nailed", "Power-washed", "Custom-milled profiles"],
+};
 
-export const PROOF_PARAGRAPH =
-  "QBC Systems is a family- and owner-operated company built on one idea: Software with a Personal Touch. We're full-service — software, hardware, IT, and training — supporting tire and automotive distributors from our home in Amherst, New York. When you call, you reach people who know your business.";
+// ─── Who we serve (segments — NO fabricated testimonials) ───
+export const WHO_WE_SERVE = {
+  intro:
+    "Wood Crafting supplies the professionals who specify and install reclaimed wood on real projects. If you're bringing a build to life, we're built to be your material partner.",
+  segments: [
+    {
+      icon: "hardhat",
+      title: "Builders & general contractors",
+      body: "Consistent material, delivered to quantity, so a reclaimed spec doesn't become a scheduling risk.",
+    },
+    {
+      icon: "compass",
+      title: "Architects",
+      body: "Real provenance and species-level detail to specify with confidence and back up your drawings.",
+    },
+    {
+      icon: "building",
+      title: "Developers",
+      body: "Project-scale volume and repeatable character for multi-unit and estate-level work.",
+    },
+    {
+      icon: "ruler",
+      title: "Interior & exterior designers",
+      body: "Sorted tone and texture to hit the exact color story and finish your concept calls for.",
+    },
+    {
+      icon: "hammer",
+      title: "Specialty contractors",
+      body: "Custom-milled profiles and processing options tuned to how your crew installs.",
+    },
+  ],
+};
+
+// ─── Project gallery / lifestyle installations ───
+export const GALLERY = {
+  intro:
+    "Reclaimed material from Wood Crafting, installed at scale — exterior cladding, timber-frame interiors, and full estate-level builds.",
+  images: [
+    {
+      src: "/images/hero-reclaimed-barn.jpg",
+      alt: "Reclaimed-wood barn estate at dusk with warmly lit windows",
+      caption: "Full reclaimed-wood estate exterior",
+      span: "wide",
+    },
+    {
+      src: "/images/estate-aerial.jpg",
+      alt: "Aerial view of a reclaimed-wood clad estate and clubhouse",
+      caption: "Estate & clubhouse, aerial",
+      span: "tall",
+    },
+    {
+      src: "/images/beams-interior.jpg",
+      alt: "Reclaimed timber-frame beams in a vaulted great room",
+      caption: "Timber-frame great room",
+      span: "normal",
+    },
+    {
+      src: "/images/siding-gray.jpg",
+      alt: "Reclaimed gray siding installed on a building exterior",
+      caption: "Reclaimed gray siding, installed",
+      span: "normal",
+    },
+    {
+      src: "/images/barnboard-gray-2.jpg",
+      alt: "Gray reclaimed board cladding detail",
+      caption: "Gray board cladding detail",
+      span: "normal",
+    },
+  ],
+};
 
 // ─── FAQ ───
 export const FAQ = [
   {
-    q: "What does the free demo include?",
-    a: "A working walkthrough of TireServ mapped to your operation — how POS, inventory, purchasing, and accounting come together in one system, plus the real-time wholesale integration, mobile order entry, and reporting. We'll also scope a quote tailored to your business. No cost, no commitment.",
+    q: "Do you supply reclaimed wood at project scale?",
+    a: "Yes — that's our focus. Wood Crafting sources and processes reclaimed material in the volume and consistency an entire project needs: a full elevation of siding, a timber-frame package, an interior scope. We're a professional sourcing partner, not a single-board retail counter.",
   },
   {
-    q: "Can you migrate us off QuickBooks or our legacy system?",
-    a: "Yes. Moving distributors off QuickBooks and aging legacy systems is core to what we do. During the demo we'll walk through how your data and workflows come across so you can see the migration path before you decide anything.",
+    q: "Where does your reclaimed wood come from?",
+    a: "We salvage from barns, horse corrals, and agricultural structures across the Northeast and Midwest — buildings that stood for generations. Everything we supply is 100% reclaimed with a real origin. We never sell new lumber distressed to look old or printed imitation product.",
   },
   {
-    q: "Is it really browser-only and cloud-based — anything to install?",
-    a: "Nothing to install. TireServ runs entirely in your web browser on any device. There are no servers to maintain on-site and no software to update yourself — you simply log in and work.",
+    q: "What processing and finishing options do you offer?",
+    a: "You choose the level of processing for each order: as-is for maximum salvaged character, de-nailed for safe handling and interior exposure, or power-washed to open up the grain. We also mill to custom profiles and dimensions so the material arrives ready for your install.",
   },
   {
-    q: "How does the real-time wholesale platform integration work?",
-    a: "TireServ connects directly to major wholesale tire platforms, so pricing and availability flow into your system in real time instead of being re-keyed by hand. Your team quotes and orders against current numbers, not yesterday's.",
+    q: "Can you match a specific species, color, or profile?",
+    a: "We identify species and grade incoming stock by tone and texture, then sort to the color story and finish your design calls for. Because we carry volume, we can match back to the same salvage character for later phases so a project reads as one continuous run.",
   },
   {
-    q: "Is TireServ a fit for a smaller distributor?",
-    a: "It's built for small-to-mid-sized tire and automotive wholesale distributors — owner-operators, not Fortune 500 IT departments. The two quick questions on the demo form (revenue and team size) simply help us tailor the walkthrough; every request gets a response regardless of your answers.",
+    q: "Who do you work with?",
+    a: "Builders, general contractors, architects, developers, interior and exterior designers, and specialty contractors — the professionals specifying and installing reclaimed wood on real projects. Share your scope and we'll source to it.",
   },
   {
-    q: "What does it cost?",
-    a: "Pricing is tailored to your operation rather than a one-size sticker. The free demo includes a scoped quote based on what you actually need, so you get real numbers for your business — with no obligation.",
+    q: "How do I get pricing and get started?",
+    a: "Send us your project details — the product lines you need, rough quantities, and what you're building — through the quote form. Because pricing depends on species, processing, milling, and volume, we scope each inquiry to the actual project and respond with real numbers for your build.",
   },
 ];
 
 // ─── Final CTA ───
 export const FINAL_CTA = {
-  headline: "See TireServ against your real workflow — free, no commitment.",
-  body: "Request a demo and we'll show you how one purpose-built system replaces the workarounds. Prefer to talk first? Call us. Every request gets a response within one business day.",
+  headline: "Spec your reclaimed wood with a partner who knows the material.",
+  body: "Tell us what you're building and the products you need. We'll scope your project — species, processing, milling, and volume — and come back with real numbers. Every complete inquiry reaches our team directly.",
 };
 
-// ─── Form select options (wired exactly to the LeadFormField contract) ───
-export const TIRE_BRANDS = [
-  "Michelin / BFGoodrich / Uniroyal",
-  "Bridgestone / Firestone",
-  "Goodyear / Dunlop / Kelly",
-  "Continental / General Tire",
-  "Cooper / Mastercraft",
-  "Hankook",
-  "Yokohama",
-  "Pirelli",
-  "Toyo / Nitto",
-  "Falken / Ohtsu",
-  "Nexen",
-  "Multiple brands (mixed inventory)",
-  "Other",
+// ─── Form select options (wired to the LeadFormField contract) ───
+export const PRODUCT_OPTIONS = [
+  "Reclaimed Beams",
+  "Siding & Paneling",
+  "Reclaimed Barn Board",
+  "Reclaimed Corral Fencing",
+  "Not sure",
+  "Multiple products",
 ];
 
-export const REVENUE_OPTIONS = [
-  "Under $2M",
-  "$2M–$5M",
-  "$5M–$10M",
-  "$10M–$20M",
-  "$20M–$40M",
-  "$40M+",
-];
-
-export const EMPLOYEE_OPTIONS = ["Under 5", "5–25", "25+"];
-
-// ─── Mega tracking — real QBC IDs. NO Meta Pixel (customer opted out). ───
+// ─── Mega tracking — real Wood Crafting IDs. ───
 export const TRACKING = {
-  siteKey: "5rn5f8eze80jvipf",
-  siteId: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
-  gtmId: "GTM-5PN93D",
+  siteKey: "ow4y6fr52u7t9tsf",
+  siteId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
+  gtmId: "GTM-PQBFMM3K",
+  metaPixelId: "1494879215999837",
 };
 
-// Mega submission API expects snake_case keys: customer_id, site_id, source_provider
+// Mega submission API expects snake_case keys: customer_id, site_id, source_provider.
+// Routing to Keystone CRM (notify info@woodcraftingllc.com) is wired server-side by
+// site_id; no separate customer_id was provisioned for this LP, so we key on site_id.
 export const FORM = {
-  customerId: "16ee8343-6dad-4978-987d-49a4f59ef473",
-  siteId: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
-  sourceProvider: "qbc-systems-landing",
-  // snake_case mirrors for documentation + lint visibility:
-  customer_id: "16ee8343-6dad-4978-987d-49a4f59ef473",
-  site_id: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
+  customerId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
+  siteId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
+  sourceProvider: "wood-crafting-landing",
 };
