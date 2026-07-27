@@ -293,10 +293,11 @@ export const TRACKING = {
 };
 
 // Mega submission API expects snake_case keys: customer_id, site_id, source_provider.
-// Routing to Keystone CRM (notify info@woodcraftingllc.com) is wired server-side by
-// site_id; no separate customer_id was provisioned for this LP, so we key on site_id.
+// customer_id is the real Mega customer UUID (the account the submission API authorizes
+// against); site_id is this LP's Mega site id. They are DIFFERENT values — using the
+// site_id as customer_id gets a 401 unauthorized_customer_submission and drops the lead.
 export const FORM = {
-  customerId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
+  customerId: "fa520f37-c81b-48fc-9f4c-3c77bcf933ca",
   siteId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
   sourceProvider: "wood-crafting-landing",
 };
