@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { FormCard } from "@/components/FormCard";
 import { Icon } from "@/components/icons";
-import { HERO, PHONE, PHONE_HREF, BRAND } from "@/lib/content";
+import { HERO } from "@/lib/content";
 
 export function Hero(): React.ReactElement {
   return (
@@ -51,18 +51,6 @@ export function Hero(): React.ReactElement {
             <p className="hidden max-w-xl text-base leading-relaxed text-white/75 md:block md:text-lg">
               {HERO.subhead}
             </p>
-
-            <a
-              href={PHONE_HREF}
-              className="hidden items-center gap-2.5 rounded-md px-1 font-semibold text-white transition-colors hover:text-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] md:inline-flex"
-              aria-label={`Call ${BRAND.company} at ${PHONE}`}
-            >
-              <Icon name="phone" className="h-5 w-5 text-[var(--color-primary)]" strokeWidth={0} fill="currentColor" />
-              <span>
-                <span className="mr-1.5 text-sm font-normal text-white/60">Prefer to talk?</span>
-                {PHONE}
-              </span>
-            </a>
           </Reveal>
         </div>
 
@@ -72,19 +60,6 @@ export function Hero(): React.ReactElement {
             <FormCard idPrefix="hero" onDark />
           </Reveal>
         </div>
-
-        {/* Phone — mobile only, below the form */}
-        <a
-          href={PHONE_HREF}
-          className="order-3 inline-flex items-center justify-center gap-2.5 rounded-md font-semibold text-white md:hidden"
-          aria-label={`Call ${BRAND.company} at ${PHONE}`}
-        >
-          <Icon name="phone" className="h-5 w-5 text-[var(--color-primary)]" strokeWidth={0} fill="currentColor" />
-          <span>
-            <span className="mr-1.5 text-sm font-normal text-white/60">Prefer to talk?</span>
-            {PHONE}
-          </span>
-        </a>
       </div>
     </section>
   );

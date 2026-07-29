@@ -3,7 +3,7 @@
 import { Reveal } from "@/components/Reveal";
 import { FormCard } from "@/components/FormCard";
 import { Icon } from "@/components/icons";
-import { FINAL_CTA, PHONE, PHONE_HREF, BRAND } from "@/lib/content";
+import { FINAL_CTA } from "@/lib/content";
 
 export function FinalCta(): React.ReactElement {
   return (
@@ -25,20 +25,9 @@ export function FinalCta(): React.ReactElement {
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/85">{FINAL_CTA.body}</p>
 
-            <div className="mt-8">
-              <p className="text-sm text-white/70">Prefer to talk first?</p>
-              <a
-                href={PHONE_HREF}
-                className="mt-2 inline-flex items-center gap-3 font-display text-3xl font-bold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-md md:text-4xl"
-                aria-label={`Call ${BRAND.company} at ${PHONE}`}
-              >
-                <Icon name="phone" className="h-7 w-7" strokeWidth={0} fill="currentColor" />
-                {PHONE}
-              </a>
-              <div className="mt-6 flex items-center gap-2 text-sm text-white/85">
-                <Icon name="check" className="h-4 w-4" strokeWidth={2.6} />
-                Every complete inquiry reaches our team directly.
-              </div>
+            <div className="mt-8 flex items-center gap-2 text-sm text-white/85">
+              <Icon name="check" className="h-4 w-4" strokeWidth={2.6} />
+              Every complete inquiry reaches our team directly.
             </div>
           </Reveal>
 

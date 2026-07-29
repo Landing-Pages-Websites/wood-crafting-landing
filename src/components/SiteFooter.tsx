@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BRAND, CURRENT_YEAR, NAP, PHONE, PHONE_HREF } from "@/lib/content";
+import { BRAND, CURRENT_YEAR, NAP } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 export function SiteFooter(): React.ReactElement {
@@ -37,12 +37,6 @@ export function SiteFooter(): React.ReactElement {
                   <br />
                   {NAP.street}, {NAP.city}, {NAP.state} {NAP.zip}
                 </span>
-              </p>
-              <p className="flex items-center gap-2.5">
-                <Icon name="phone" className="h-4 w-4 shrink-0 text-[var(--color-primary)]" strokeWidth={0} fill="currentColor" />
-                <a href={PHONE_HREF} className="transition-colors hover:text-white" aria-label={`Call ${BRAND.company} at ${PHONE}`}>
-                  {PHONE}
-                </a>
               </p>
               <p className="flex items-center gap-2.5">
                 <Icon name="mail" className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />

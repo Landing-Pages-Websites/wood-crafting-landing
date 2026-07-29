@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
-import { CTA, PHONE, PRODUCT_OPTIONS } from "@/lib/content";
+import { CTA, PRODUCT_OPTIONS } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 declare global {
@@ -273,13 +273,6 @@ export function FormCard({
           </h3>
           <p className="text-base leading-relaxed text-[var(--color-muted)]">
             {thankYouBody}
-          </p>
-          <p className="text-sm text-[var(--color-muted)]">
-            Prefer to talk now? Call{" "}
-            <span className="font-semibold text-[var(--color-text)] whitespace-nowrap">
-              {PHONE}
-            </span>
-            .
           </p>
         </div>
       </div>

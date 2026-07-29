@@ -1,12 +1,8 @@
 // Site-wide content + config for Wood Crafting — reclaimed-wood project sourcing LP.
-// Single source of truth for copy, phone, address, form options, and tracking IDs.
-
-export const PHONE = "(845) 373-8020";
-export const PHONE_HREF = "tel:8453738020";
+// Single source of truth for copy, address, form options, and tracking IDs.
 
 export const CTA = {
   primary: "Request a Project Quote",
-  secondary: "Call (845) 373-8020",
   formAnchor: "#quote",
   heroFormAnchor: "#hero",
 };
@@ -22,7 +18,7 @@ export const BRAND = {
 
 export const CURRENT_YEAR = new Date().getFullYear();
 
-// ─── Name / Address / Phone (footer NAP) ───
+// ─── Name / Address (footer NAP) ───
 export const NAP = {
   name: "Wood Crafting",
   street: "76 Main St",
