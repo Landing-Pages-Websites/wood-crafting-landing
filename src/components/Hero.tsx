@@ -10,7 +10,7 @@ export function Hero(): React.ReactElement {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden bg-[var(--color-charcoal-deep)] pt-24 md:pt-32 pb-14 md:pb-24"
+      className="relative isolate overflow-hidden bg-[var(--color-charcoal-deep)] pt-20 md:pt-32 pb-12 md:pb-24"
     >
       {/* Reclaimed-barn estate at dusk + charcoal scrim */}
       <div className="absolute inset-0 -z-10">
@@ -30,7 +30,7 @@ export function Hero(): React.ReactElement {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-5 md:px-8 lg:grid-cols-2 lg:gap-14">
         {/* Copy */}
         <div className="order-1 lg:pt-6">
-          <Reveal className="space-y-5 md:space-y-6">
+          <Reveal className="space-y-4 md:space-y-6">
             <ul className="flex flex-wrap gap-2">
               {HERO.chips.map((chip) => (
                 <li
@@ -48,7 +48,7 @@ export function Hero(): React.ReactElement {
               <span className="text-[var(--color-primary)]">{HERO.h1Accent}</span>
             </h1>
 
-            <p className="hidden max-w-xl text-base leading-relaxed text-white/75 md:block md:text-lg">
+            <p className="max-w-xl text-[0.95rem] leading-relaxed text-white/75 md:text-lg">
               {HERO.subhead}
             </p>
           </Reveal>
