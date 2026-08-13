@@ -45,6 +45,7 @@ interface FormState {
   company: string;
   product_needed: string;
   project_needs: string;
+  sms_consent: boolean;
 }
 
 const INITIAL: FormState = {
@@ -55,6 +56,7 @@ const INITIAL: FormState = {
   company: "",
   product_needed: "",
   project_needs: "",
+  sms_consent: false,
 };
 
 type FieldErrors = Partial<Record<FieldKey, string>>;
@@ -64,7 +66,6 @@ const REQUIRED_ORDER: FieldKey[] = [
   "first_name",
   "last_name",
   "email",
-  "phone",
   "company",
   "product_needed",
   "project_needs",
@@ -84,7 +85,7 @@ function validateField(key: FieldKey, value: string): string | undefined {
     }
     case "phone": {
       const digits = value.replace(/\D/g, "");
-      if (!digits) return "Phone number is required.";
+      if (!digits) return undefined;
       if (digits.length !== 10) return "Please enter a valid 10-digit phone number.";
       if (!NANP_RE.test(digits)) return "Please enter a valid US phone number.";
       return undefined;
@@ -154,7 +155,9 @@ export function FormCard({
   const formRef = useRef<HTMLFormElement>(null);
   const fieldRefs = useRef<Partial<Record<FieldKey, HTMLElement | null>>>({});
 
-  const update = (k: keyof FormState, v: string) => {
+  type TextFieldKey = Exclude<keyof FormState, "sms_consent">;
+
+  const update = (k: TextFieldKey, v: string) => {
     setData((d) => ({ ...d, [k]: v }));
     setErrors((prev) => {
       if (!(k in prev)) return prev;
@@ -166,6 +169,10 @@ export function FormCard({
       delete next[key];
       return next;
     });
+  };
+
+  const updateSmsConsent = (checked: boolean) => {
+    setData((d) => ({ ...d, sms_consent: checked }));
   };
 
   const markTouched = (k: FieldKey, currentValue: string) => {
@@ -205,7 +212,6 @@ export function FormCard({
         first_name: true,
         last_name: true,
         email: true,
-        phone: true,
         company: true,
         product_needed: true,
         project_needs: true,
@@ -246,6 +252,10 @@ export function FormCard({
         company: data.company.trim(),
         productNeeded: data.product_needed,
         projectNeeds: data.project_needs.trim(),
+        smsConsent: data.sms_consent,
+        smsConsentText: data.sms_consent
+          ? "I agree to receive customer-care SMS/text messages from Wood Crafting LLC about my project inquiry, quote, order, appointments, reminders, and service updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase."
+          : "Not provided",
         routeSlug:
           routeSlug ||
           (typeof window !== "undefined" ? window.location.pathname : "/"),
@@ -397,7 +407,7 @@ export function FormCard({
         )}
       </div>
 
-      {/* Phone */}
+      {/* Phone (optional) */}
       <div>
         <label htmlFor={`${idPrefix}-phone`} className="sr-only">Phone</label>
         <input
@@ -405,7 +415,6 @@ export function FormCard({
           id={`${idPrefix}-phone`}
           name="phone"
           type="tel"
-          required
           inputMode="numeric"
           autoComplete="tel"
           placeholder="Phone (10 digits)"
@@ -422,6 +431,42 @@ export function FormCard({
             {errors.phone}
           </p>
         )}
+      </div>
+
+      {/* SMS/Text Messaging consent (optional, unchecked by default) */}
+      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5">
+        <label
+          htmlFor={`${idPrefix}-sms_consent`}
+          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed text-[var(--color-muted)]"
+        >
+          <input
+            id={`${idPrefix}-sms_consent`}
+            name="sms_consent"
+            type="checkbox"
+            checked={data.sms_consent}
+            onChange={(e) => updateSmsConsent(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
+            disabled={submitting}
+          />
+          <span>
+            I agree to receive customer-care SMS/text messages from Wood Crafting LLC
+            about my project inquiry, quote, order, appointments, reminders, and service
+            updates. Message frequency varies. Message and data rates may apply. Reply
+            STOP to opt out or HELP for help. Consent is not a condition of purchase.
+            View our{" "}
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
+              Terms of Service
+            </a>
+            .
+          </span>
+        </label>
+        <p className="mt-2 pl-6 text-[11px] leading-relaxed text-[var(--color-muted-soft)]">
+          Optional. You may submit this form without consenting to text messages.
+        </p>
       </div>
 
       {/* Company (required) */}
