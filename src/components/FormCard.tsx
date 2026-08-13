@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
-import { CTA, PRODUCT_OPTIONS } from "@/lib/content";
+import { BRAND, CTA, PRODUCT_OPTIONS } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 declare global {
@@ -21,6 +21,10 @@ const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 
 // NANP: area code & exchange each start 2-9 and may not be an N11.
 const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
+
+// Submit-level failure copy. Retryable, and points to email as the fallback path.
+const SUBMIT_ERROR_MESSAGE =
+  `Something went wrong sending your request. Please try again, or email us at ${BRAND.email}.`;
 
 // DOM field keys are snake_case; the submitted payload is mapped to camelCase
 // so there is never a duplicate (e.g. firstName + first_name) in form_data.
@@ -142,6 +146,7 @@ export function FormCard({
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Synchronous re-entrancy guard — blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
@@ -227,9 +232,10 @@ export function FormCard({
 
     inFlightRef.current = true;
     setSubmitting(true);
+    setSubmitError(null);
     try {
       // camelCase form_data only — no snake_case duplicates.
-      await submit({
+      const res = await submit({
         firstName: data.first_name.trim(),
         lastName: data.last_name.trim(),
         email: data.email.trim(),
@@ -241,18 +247,20 @@ export function FormCard({
           routeSlug ||
           (typeof window !== "undefined" ? window.location.pathname : "/"),
       });
-      fireTracking();
-      setSubmitted(true);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "unknown error";
-      // Non-fatal: still fire tracking + show thank-you so the user isn't stranded.
-      if (typeof window !== "undefined") {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "form_error", form_error: message });
+      // A 2xx with a body that isn't {ok:true} is still a dropped lead. Only
+      // confirmed success fires conversions and shows the thank-you card.
+      if (res?.ok !== true) {
+        throw new Error("Submission not confirmed by server.");
       }
       fireTracking();
       setSubmitted(true);
+    } catch (err) {
+      console.error("Form submission error:", err);
+      // The visitor is fine, but the LEAD would be dropped: surface a retryable
+      // error and fire NO tracking so we never bill a phantom conversion.
+      setSubmitError(SUBMIT_ERROR_MESSAGE);
     } finally {
+      inFlightRef.current = false;
       setSubmitting(false);
     }
   };
@@ -494,6 +502,16 @@ export function FormCard({
           </p>
         )}
       </div>
+
+      {submitError && (
+        <p
+          role="alert"
+          aria-live="polite"
+          className="lp-field-error !mt-0 rounded-lg border border-[var(--color-error)]/35 bg-[#fef3f2] px-3.5 py-2.5"
+        >
+          {submitError}
+        </p>
+      )}
 
       <button
         type="button"
