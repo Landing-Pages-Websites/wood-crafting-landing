@@ -193,9 +193,9 @@ export function FormCard({
     window.dataLayer.push({ event: "form_submission", form_route: route });
   };
 
-  // Button click validates FIRST, then hands off to the form's native submit
-  // via requestSubmit(). The button is type="button" so the optimizer's
-  // capture-phase listener never fires on empty/invalid clicks.
+  // Button click validates FIRST, then calls doSubmit() directly. The button is
+  // type="button" so the optimizer's capture-phase listener never fires on
+  // empty/invalid clicks, and no native submit event is produced here.
   const handleValidateAndSubmit = () => {
     if (inFlightRef.current || submitting || submitted) return;
     const allErrors = validateAll(data);
@@ -221,15 +221,18 @@ export function FormCard({
       }
       return;
     }
-    formRef.current?.requestSubmit();
+    void doSubmit();
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // A stray native submit (Enter key inside a field) must never fire the network
+  // call or reach the optimizer's auto-detection. The type="button" click handler
+  // is the only submit entry point.
+  const handleNativeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inFlightRef.current || submitting || submitted) return;
-    // Re-validate defensively — requestSubmit should only reach here when valid.
-    if (Object.keys(validateAll(data)).length > 0) return;
+  };
 
+  const doSubmit = async () => {
+    if (inFlightRef.current || submitting || submitted) return;
     inFlightRef.current = true;
     setSubmitting(true);
     setSubmitError(null);
@@ -253,6 +256,13 @@ export function FormCard({
         throw new Error("Submission not confirmed by server.");
       }
       fireTracking();
+      // The MEGA optimizer also auto-detects the native submit DOM event as a
+      // conversion. Dispatch it only after the lead is CONFIRMED persisted, and
+      // before the success card unmounts the <form>. The form has no action and is
+      // dispatched programmatically, so nothing navigates.
+      formRef.current?.dispatchEvent(
+        new Event("submit", { bubbles: true, cancelable: true })
+      );
       setSubmitted(true);
     } catch (err) {
       console.error("Form submission error:", err);
@@ -296,7 +306,7 @@ export function FormCard({
   return (
     <form
       ref={formRef}
-      onSubmit={handleSubmit}
+      onSubmit={handleNativeSubmit}
       noValidate
       aria-label="Request a project quote"
       className={`${cardBase} space-y-3.5 p-6 md:p-7`}
