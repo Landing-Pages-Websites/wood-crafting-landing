@@ -433,42 +433,6 @@ export function FormCard({
         )}
       </div>
 
-      {/* SMS/Text Messaging consent (optional, unchecked by default) */}
-      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5">
-        <label
-          htmlFor={`${idPrefix}-sms_consent`}
-          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed text-[var(--color-muted)]"
-        >
-          <input
-            id={`${idPrefix}-sms_consent`}
-            name="sms_consent"
-            type="checkbox"
-            checked={data.sms_consent}
-            onChange={(e) => updateSmsConsent(e.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
-            disabled={submitting}
-          />
-          <span>
-            I agree to receive customer-care SMS/text messages from Wood Crafting LLC
-            about my project inquiry, quote, order, appointments, reminders, and service
-            updates. Message frequency varies. Message and data rates may apply. Reply
-            STOP to opt out or HELP for help. Consent is not a condition of purchase.
-            View our{" "}
-            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
-              Privacy Policy
-            </a>{" "}
-            and{" "}
-            <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
-              Terms of Service
-            </a>
-            .
-          </span>
-        </label>
-        <p className="mt-2 pl-6 text-[11px] leading-relaxed text-[var(--color-muted-soft)]">
-          Optional. You may submit this form without consenting to text messages.
-        </p>
-      </div>
-
       {/* Company (required) */}
       <div>
         <label htmlFor={`${idPrefix}-company`} className="sr-only">
@@ -556,6 +520,42 @@ export function FormCard({
             {errors.project_needs}
           </p>
         )}
+      </div>
+
+      {/* SMS/Text Messaging consent (optional, unchecked by default) */}
+      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5">
+        <label
+          htmlFor={`${idPrefix}-sms_consent`}
+          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed text-[var(--color-muted)]"
+        >
+          <input
+            id={`${idPrefix}-sms_consent`}
+            name="sms_consent"
+            type="checkbox"
+            checked={data.sms_consent}
+            onChange={(e) => updateSmsConsent(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
+            disabled={submitting}
+          />
+          <span>
+            I agree to receive customer-care SMS/text messages from Wood Crafting LLC
+            about my project inquiry, quote, order, appointments, reminders, and service
+            updates. Message frequency varies. Message and data rates may apply. Reply
+            STOP to opt out or HELP for help. Consent is not a condition of purchase.
+            View our{" "}
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
+              Terms of Service
+            </a>
+            .
+          </span>
+        </label>
+        <p className="mt-2 pl-6 text-[11px] leading-relaxed text-[var(--color-muted-soft)]">
+          Optional. You may submit this form without consenting to text messages.
+        </p>
       </div>
 
       {submitError && (
