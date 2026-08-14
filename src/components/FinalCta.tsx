@@ -36,7 +36,7 @@ export function FinalCta(): React.ReactElement {
               idPrefix="quote"
               onDark
               heading="Scope your project"
-              subheading="Tell us the product lines, rough quantities, and what you're building — we'll come back with real numbers."
+              subheading="Tell us the product lines, rough quantities, and what you're building: we'll come back with real numbers."
             />
           </Reveal>
         </div>

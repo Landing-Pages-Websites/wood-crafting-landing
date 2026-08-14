@@ -16,7 +16,7 @@ export function TrustBar(): React.ReactElement {
             {BRAND.tagline}
           </p>
           <p className="mt-3 text-lg leading-relaxed text-[var(--color-muted)] md:text-xl">
-            A professional sourcing partner for reclaimed wood — not a retail
+            A professional sourcing partner for reclaimed wood, not a retail
             lumber yard, not a DIY marketplace.
           </p>
         </Reveal>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CTA } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
-// Mobile sticky action bar — primary quote CTA, always one tap away.
+// Mobile sticky action bar: primary quote CTA, always one tap away.
 export function FloatingCTA(): React.ReactElement {
   const [show, setShow] = useState(false);
 

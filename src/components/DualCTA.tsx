@@ -7,7 +7,7 @@ interface DualCTAProps {
   align?: "start" | "center";
   primaryLabel?: string;
   primaryHref?: string;
-  /** Use on dark charcoal / crimson bands — switches the button to light-on-dark. */
+  /** Use on dark charcoal / crimson bands: switches the button to light-on-dark. */
   onDark?: boolean;
 }
 

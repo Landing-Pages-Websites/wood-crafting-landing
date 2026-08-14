@@ -27,7 +27,7 @@ export function Header(): React.ReactElement {
         <a
           href={CTA.heroFormAnchor}
           className="flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-          aria-label={`${BRAND.company} — home`}
+          aria-label={`${BRAND.company}: home`}
         >
           <Image
             src="/logo.png"

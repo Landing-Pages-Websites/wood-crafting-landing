@@ -54,7 +54,7 @@ export function Hero(): React.ReactElement {
           </Reveal>
         </div>
 
-        {/* Form — above the fold on desktop and mobile */}
+        {/* Form: above the fold on desktop and mobile */}
         <div className="order-2 lg:justify-self-end lg:w-full lg:max-w-md">
           <Reveal delay={120}>
             <FormCard idPrefix="hero" onDark />

@@ -26,13 +26,13 @@ const META_PIXEL_ID = "1494879215999837";
 export const metadata: Metadata = {
   metadataBase: new URL("https://book.woodcraftingllc.com"),
   title:
-    "Wood Crafting — Project-Scale Reclaimed Wood Sourcing for Builders & Architects",
+    "Wood Crafting: Project-Scale Reclaimed Wood Sourcing for Builders & Architects",
   description:
-    "Wood Crafting is the professional sourcing partner for project-scale reclaimed wood in the Northeast — reclaimed beams, siding & paneling, barn board, and corral fencing. 100% reclaimed, locally salvaged, custom-milled. Request a project quote.",
+    "Wood Crafting is the professional sourcing partner for project-scale reclaimed wood in the Northeast: reclaimed beams, siding & paneling, barn board, and corral fencing. 100% reclaimed, locally salvaged, custom-milled. Request a project quote.",
   openGraph: {
-    title: "Wood Crafting — Authentic Reclaimed Wood, Supplied at Project Scale",
+    title: "Wood Crafting: Authentic Reclaimed Wood, Supplied at Project Scale",
     description:
-      "Reclaimed beams, siding, barn board, and corral fencing salvaged from Northeast & Midwest structures — custom milled and processed for builders, architects, and developers.",
+      "Reclaimed beams, siding, barn board, and corral fencing salvaged from Northeast & Midwest structures, custom milled and processed for builders, architects, and developers.",
     images: ["/images/hero-reclaimed-barn.jpg"],
     type: "website",
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
-  robots: { index: false, follow: false }, // ads LP — not indexed
+  robots: { index: false, follow: false }, // ads LP: not indexed
 };
 
 export default function RootLayout({
@@ -64,7 +64,7 @@ export default function RootLayout({
         />
         {/* Google Tag Manager */}
         <script id="gtm-base" dangerouslySetInnerHTML={{ __html: gtmScript }} />
-        {/* Meta Pixel — remarketing audience build (no active campaigns yet) */}
+        {/* Meta Pixel: remarketing audience build (no active campaigns yet) */}
         <script id="meta-pixel" dangerouslySetInnerHTML={{ __html: metaPixel }} />
         <noscript>
           <img
@@ -94,7 +94,7 @@ export default function RootLayout({
           />
         </noscript>
         {children}
-        {/* CallTrackingMetrics — universal Mega account (never remove) */}
+        {/* CallTrackingMetrics: universal Mega account (never remove) */}
         <Script src="https://572388.tctm.co/t.js" strategy="afterInteractive" />
       </body>
     </html>

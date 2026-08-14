@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Wood Crafting — brand tokens (from design_system color_roles) */
-  --color-primary: #c60a38;        /* crimson — primary CTA */
+  /* Wood Crafting: brand tokens (from design_system color_roles) */
+  --color-primary: #c60a38;        /* crimson: primary CTA */
   --color-primary-hover: #a50830;
   --color-primary-active: #8d0727;
   --color-primary-disabled: #c9bfb4;
 
-  --color-charcoal: #3a3532;       /* secondary — dark bands, headings */
+  --color-charcoal: #3a3532;       /* secondary: dark bands, headings */
   --color-charcoal-deep: #1c1a18;  /* deepest text / footer */
-  --color-accent: #8d0727;         /* deep crimson — hovers, accents */
+  --color-accent: #8d0727;         /* deep crimson: hovers, accents */
 
-  /* Neutrals — warm paper family */
+  /* Neutrals: warm paper family */
   --color-bg: #f7f3ec;             /* warm paper page background */
   --color-surface: #ffffff;        /* raised cards / panels */
   --color-surface-2: #f5f1ea;      /* alt warm surface */
@@ -40,7 +40,7 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-/* Base heading typography — kept in @layer base so Tailwind text-* / color
+/* Base heading typography: kept in @layer base so Tailwind text-* / color
    utilities still win when applied directly on an element. */
 @layer base {
   h1, h2, h3, h4, h5, h6 {
@@ -64,7 +64,7 @@ html, body {
   color: var(--color-primary);
 }
 
-/* Layered soft CTA shadow — keyed to crimson */
+/* Layered soft CTA shadow: keyed to crimson */
 .shadow-cta {
   box-shadow: 0 12px 28px -10px rgba(198, 10, 56, 0.42),
               0 4px 10px -4px rgba(28, 26, 24, 0.14);

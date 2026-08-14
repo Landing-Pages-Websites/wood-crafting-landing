@@ -1,4 +1,4 @@
-// Site-wide content + config for Wood Crafting — reclaimed-wood project sourcing LP.
+// Site-wide content + config for Wood Crafting: reclaimed-wood project sourcing LP.
 // Single source of truth for copy, address, form options, and tracking IDs.
 
 export const CTA = {
@@ -32,7 +32,7 @@ export const NAP = {
 export const HERO = {
   chips: [
     "100% reclaimed material",
-    "Locally salvaged — Northeast & Midwest",
+    "Locally salvaged: Northeast & Midwest",
     "Project-scale supply",
   ],
   h1Lead: "Authentic reclaimed wood,",
@@ -46,7 +46,7 @@ export const TRUST_STATS = [
   {
     icon: "leaf",
     value: "100% Reclaimed",
-    label: "Every board salvaged from real structures — never new-cut or imitation.",
+    label: "Every board salvaged from real structures, never new-cut or imitation.",
   },
   {
     icon: "map",
@@ -74,7 +74,7 @@ export const PRODUCTS = [
     image: "/images/beams-interior.jpg",
     imageAlt:
       "Reclaimed timber-frame beams spanning a vaulted great room interior",
-    body: "Hand-hewn and sawn timbers pulled from 19th- and early-20th-century barns and agricultural structures across the Northeast and Midwest. Every beam carries the marks of its working life — axe scores, mortise pockets, weathered patina, and the density that only old-growth timber delivers. We identify and match the species that define reclaimed barn stock, and we carry the volume to supply a full timber-frame or feature-beam package rather than a one-off stick. Specify them as-is for maximum character, de-nailed and cleaned for interior exposure, or power-washed to bring the grain forward. Send us your spans and profiles and we source to your drawings.",
+    body: "Hand-hewn and sawn timbers pulled from 19th- and early-20th-century barns and agricultural structures across the Northeast and Midwest. Every beam carries the marks of its working life: axe scores, mortise pockets, weathered patina, and the density that only old-growth timber delivers. We identify and match the species that define reclaimed barn stock, and we carry the volume to supply a full timber-frame or feature-beam package rather than a one-off stick. Specify them as-is for maximum character, de-nailed and cleaned for interior exposure, or power-washed to bring the grain forward. Send us your spans and profiles and we source to your drawings.",
     specs: ["Hand-hewn & sawn", "Old-growth density", "Custom spans & profiles"],
   },
   {
@@ -83,7 +83,7 @@ export const PRODUCTS = [
     title: "Siding & Paneling",
     image: "/images/siding-red-texture.jpg",
     imageAlt: "Authentic weathered red barn-board siding with original paint",
-    body: "Weathered exterior siding and interior paneling with the original paint, patina, and saw texture intact — the surface you cannot fake with a stain or a wire brush. We supply authentic red, gray, and mixed-tone boards in runs consistent enough to clad a full elevation or wrap an interior feature wall, sorted for the color story your design calls for. Because the material is reclaimed, every board reads differently in raking light, giving finished walls the depth that manufactured products only imitate. Choose your processing level and milling profile, from raw as-found character to a cleaned, install-ready face, and we'll pull to quantity for the whole scope.",
+    body: "Weathered exterior siding and interior paneling with the original paint, patina, and saw texture intact: the surface you cannot fake with a stain or a wire brush. We supply authentic red, gray, and mixed-tone boards in runs consistent enough to clad a full elevation or wrap an interior feature wall, sorted for the color story your design calls for. Because the material is reclaimed, every board reads differently in raking light, giving finished walls the depth that manufactured products only imitate. Choose your processing level and milling profile, from raw as-found character to a cleaned, install-ready face, and we'll pull to quantity for the whole scope.",
     specs: ["Original paint & patina", "Sorted by color", "As-is → install-ready"],
   },
   {
@@ -92,7 +92,7 @@ export const PRODUCTS = [
     title: "Reclaimed Barn Board",
     image: "/images/barnboard-gray-texture.jpg",
     imageAlt: "Reclaimed gray barn board showing knots and weathered grain",
-    body: "Sun- and weather-grayed barn board with the knots, checks, and grain that come only from decades exposed to Northeast winters. This is the workhorse of a reclaimed project — accent walls, ceilings, millwork, cabinetry faces, and casework — supplied in the widths and lengths a real installation needs, not a bundle of hobby offcuts. We grade and sort for tone and texture so your crew opens consistent material on site, and we de-nail and process to the level your application requires. When you need more, we can match back to the same salvage character so a phase-two order reads as one continuous run.",
+    body: "Sun- and weather-grayed barn board with the knots, checks, and grain that come only from decades exposed to Northeast winters. This is the workhorse of a reclaimed project (accent walls, ceilings, millwork, cabinetry faces, and casework) supplied in the widths and lengths a real installation needs, not a bundle of hobby offcuts. We grade and sort for tone and texture so your crew opens consistent material on site, and we de-nail and process to the level your application requires. When you need more, we can match back to the same salvage character so a phase-two order reads as one continuous run.",
     specs: ["Naturally grayed", "Graded & sorted", "De-nailed on request"],
   },
   {
@@ -102,7 +102,7 @@ export const PRODUCTS = [
     image: "/images/corral-exterior.jpg",
     imageAlt:
       "Reclaimed corral and gray board cladding on a premium home exterior with stone base",
-    body: "Boards salvaged from working horse corrals and livestock enclosures — the most weathered, character-dense material we source. Years of use, sun, and stock contact give these boards a depth of texture that reads as instantly authentic on exterior cladding, entry features, and rugged interior accents. Because it is genuine corral stock, the grain, checking, and worn edges are real, not distressed by machine. We sort and process for the finish you want and supply the quantity to carry a feature or a full exterior, so the character stays consistent from the first board to the last. Tell us the look you're after and we'll source to match.",
+    body: "Boards salvaged from working horse corrals and livestock enclosures: the most weathered, character-dense material we source. Years of use, sun, and stock contact give these boards a depth of texture that reads as instantly authentic on exterior cladding, entry features, and rugged interior accents. Because it is genuine corral stock, the grain, checking, and worn edges are real, not distressed by machine. We sort and process for the finish you want and supply the quantity to carry a feature or a full exterior, so the character stays consistent from the first board to the last. Tell us the look you're after and we'll source to match.",
     specs: ["Genuine corral stock", "Deep worn texture", "Sorted to quantity"],
   },
 ];
@@ -116,27 +116,27 @@ export const WHY = {
     {
       icon: "leaf",
       title: "Genuine authenticity",
-      body: "Every board is 100% reclaimed from a real structure — never new lumber distressed to look old, never printed imitation. The patina, paint, and wear are the record of the wood's working life.",
+      body: "Every board is 100% reclaimed from a real structure: never new lumber distressed to look old, never printed imitation. The patina, paint, and wear are the record of the wood's working life.",
     },
     {
       icon: "map",
       title: "Traceable provenance",
-      body: "We salvage from barns, horse corrals, and agricultural buildings across the Northeast and Midwest — structures that stood for generations. You get material with a real origin, not an anonymous mixed lot.",
+      body: "We salvage from barns, horse corrals, and agricultural buildings across the Northeast and Midwest: structures that stood for generations. You get material with a real origin, not an anonymous mixed lot.",
     },
     {
       icon: "compass",
       title: "Species-level expertise",
-      body: "We identify species, read grain and density, and match tone and texture across a run — so what ships is right for the application and reads as one consistent material on site.",
+      body: "We identify species, read grain and density, and match tone and texture across a run, so what ships is right for the application and reads as one consistent material on site.",
     },
     {
       icon: "layers",
       title: "Project-scale capability",
-      body: "We carry the volume and the custom-milling capacity to supply an entire elevation, frame, or interior package — with the consistency a professional install demands.",
+      body: "We carry the volume and the custom-milling capacity to supply an entire elevation, frame, or interior package, with the consistency a professional install demands.",
     },
   ],
 };
 
-// ─── How it works — sourcing & processing story ───
+// ─── How it works: sourcing & processing story ───
 export const HOW_IT_WORKS = {
   intro:
     "From a standing structure to material on your site, every step is handled by people who source and process reclaimed wood for a living.",
@@ -144,12 +144,12 @@ export const HOW_IT_WORKS = {
     {
       n: "01",
       title: "Salvage at the source",
-      body: "We reclaim from barns, corrals, and agricultural structures across the Northeast and Midwest — carefully deconstructing so the wood keeps the character that centuries of use gave it.",
+      body: "We reclaim from barns, corrals, and agricultural structures across the Northeast and Midwest, carefully deconstructing so the wood keeps the character that centuries of use gave it.",
     },
     {
       n: "02",
       title: "Sort, grade & identify",
-      body: "Incoming stock is sorted by species, tone, and texture and graded for its best use — beams, siding, board, or corral stock — so your order arrives consistent, not a random mix.",
+      body: "Incoming stock is sorted by species, tone, and texture and graded for its best use (beams, siding, board, or corral stock) so your order arrives consistent, not a random mix.",
     },
     {
       n: "03",
@@ -159,13 +159,13 @@ export const HOW_IT_WORKS = {
     {
       n: "04",
       title: "Supply to quantity",
-      body: "We pull to the volume your scope needs and can match back to the same salvage character for later phases — so the whole project reads as one continuous material.",
+      body: "We pull to the volume your scope needs and can match back to the same salvage character for later phases, so the whole project reads as one continuous material.",
     },
   ],
   processing: ["As-is", "De-nailed", "Power-washed", "Custom-milled profiles"],
 };
 
-// ─── Who we serve (segments — NO fabricated testimonials) ───
+// ─── Who we serve (segments: NO fabricated testimonials) ───
 export const WHO_WE_SERVE = {
   intro:
     "Wood Crafting supplies the professionals who specify and install reclaimed wood on real projects. If you're bringing a build to life, we're built to be your material partner.",
@@ -201,7 +201,7 @@ export const WHO_WE_SERVE = {
 // ─── Project gallery / lifestyle installations ───
 export const GALLERY = {
   intro:
-    "Reclaimed material from Wood Crafting, installed at scale — exterior cladding, timber-frame interiors, and full estate-level builds.",
+    "Reclaimed material from Wood Crafting, installed at scale: exterior cladding, timber-frame interiors, and full estate-level builds.",
   images: [
     {
       src: "/images/hero-reclaimed-barn.jpg",
@@ -240,11 +240,11 @@ export const GALLERY = {
 export const FAQ = [
   {
     q: "Do you supply reclaimed wood at project scale?",
-    a: "Yes — that's our focus. Wood Crafting sources and processes reclaimed material in the volume and consistency an entire project needs: a full elevation of siding, a timber-frame package, an interior scope. We're a professional sourcing partner, not a single-board retail counter.",
+    a: "Yes, that's our focus. Wood Crafting sources and processes reclaimed material in the volume and consistency an entire project needs: a full elevation of siding, a timber-frame package, an interior scope. We're a professional sourcing partner, not a single-board retail counter.",
   },
   {
     q: "Where does your reclaimed wood come from?",
-    a: "We salvage from barns, horse corrals, and agricultural structures across the Northeast and Midwest — buildings that stood for generations. Everything we supply is 100% reclaimed with a real origin. We never sell new lumber distressed to look old or printed imitation product.",
+    a: "We salvage from barns, horse corrals, and agricultural structures across the Northeast and Midwest: buildings that stood for generations. Everything we supply is 100% reclaimed with a real origin. We never sell new lumber distressed to look old or printed imitation product.",
   },
   {
     q: "What processing and finishing options do you offer?",
@@ -256,18 +256,18 @@ export const FAQ = [
   },
   {
     q: "Who do you work with?",
-    a: "Builders, general contractors, architects, developers, interior and exterior designers, and specialty contractors — the professionals specifying and installing reclaimed wood on real projects. Share your scope and we'll source to it.",
+    a: "Builders, general contractors, architects, developers, interior and exterior designers, and specialty contractors: the professionals specifying and installing reclaimed wood on real projects. Share your scope and we'll source to it.",
   },
   {
     q: "How do I get pricing and get started?",
-    a: "Send us your project details — the product lines you need, rough quantities, and what you're building — through the quote form. Because pricing depends on species, processing, milling, and volume, we scope each inquiry to the actual project and respond with real numbers for your build.",
+    a: "Send us your project details (the product lines you need, rough quantities, and what you're building) through the quote form. Because pricing depends on species, processing, milling, and volume, we scope each inquiry to the actual project and respond with real numbers for your build.",
   },
 ];
 
 // ─── Final CTA ───
 export const FINAL_CTA = {
   headline: "Spec your reclaimed wood with a partner who knows the material.",
-  body: "Tell us what you're building and the products you need. We'll scope your project — species, processing, milling, and volume — and come back with real numbers. Every complete inquiry reaches our team directly.",
+  body: "Tell us what you're building and the products you need. We'll scope your project (species, processing, milling, and volume) and come back with real numbers. Every complete inquiry reaches our team directly.",
 };
 
 // ─── Form select options (wired to the LeadFormField contract) ───
@@ -280,7 +280,7 @@ export const PRODUCT_OPTIONS = [
   "Multiple products",
 ];
 
-// ─── Mega tracking — real Wood Crafting IDs. ───
+// ─── Mega tracking: real Wood Crafting IDs. ───
 export const TRACKING = {
   siteKey: "ow4y6fr52u7t9tsf",
   siteId: "6d8d3034-7300-47cb-8871-e4be86ab2cea",
@@ -290,7 +290,7 @@ export const TRACKING = {
 
 // Mega submission API expects snake_case keys: customer_id, site_id, source_provider.
 // customer_id is the real Mega customer UUID (the account the submission API authorizes
-// against); site_id is this LP's Mega site id. They are DIFFERENT values — using the
+// against); site_id is this LP's Mega site id. They are DIFFERENT values: using the
 // site_id as customer_id gets a 401 unauthorized_customer_submission and drops the lead.
 export const FORM = {
   customerId: "fa520f37-c81b-48fc-9f4c-3c77bcf933ca",

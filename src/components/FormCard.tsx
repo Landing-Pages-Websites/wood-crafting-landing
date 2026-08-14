@@ -16,7 +16,7 @@ declare global {
 
 // ─── Validation (inline per-field, no native tooltips) ───
 
-// RFC-5322-lite — the lead API server-validates the rest.
+// RFC-5322-lite: the lead API server-validates the rest.
 const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 
 // NANP: area code & exchange each start 2-9 and may not be an N11.
@@ -61,7 +61,7 @@ const INITIAL: FormState = {
 
 type FieldErrors = Partial<Record<FieldKey, string>>;
 
-// company + project_needs are required — they self-qualify professional buyers.
+// company + project_needs are required: they self-qualify professional buyers.
 const REQUIRED_ORDER: FieldKey[] = [
   "first_name",
   "last_name",
@@ -126,7 +126,7 @@ interface FormCardProps {
   submitLabel?: string;
   routeSlug?: string;
   thankYouBody?: string;
-  /** Render on a dark band — softens the outer ring for contrast. */
+  /** Render on a dark band: softens the outer ring for contrast. */
   onDark?: boolean;
 }
 
@@ -134,10 +134,10 @@ export function FormCard({
   idPrefix = "hero",
   eyebrow = "Request a project quote",
   heading = "Tell us what you're building",
-  subheading = "Share your scope and we'll come back with real numbers — species, processing, milling, and volume.",
+  subheading = "Share your scope and we'll come back with real numbers: species, processing, milling, and volume.",
   submitLabel = CTA.primary,
   routeSlug,
-  thankYouBody = "Thanks — your project inquiry is in. A member of the Wood Crafting team will review your scope and follow up directly to talk species, processing, and volume.",
+  thankYouBody = "Thanks, your project inquiry is in. A member of the Wood Crafting team will review your scope and follow up directly to talk species, processing, and volume.",
   onDark = false,
 }: FormCardProps) {
   const { submit } = useMegaLeadForm();
@@ -149,7 +149,7 @@ export function FormCard({
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Synchronous re-entrancy guard — blocks duplicate fires from rapid clicks
+  // Synchronous re-entrancy guard: blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
   const inFlightRef = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -243,7 +243,7 @@ export function FormCard({
     setSubmitting(true);
     setSubmitError(null);
     try {
-      // camelCase form_data only — no snake_case duplicates.
+      // camelCase form_data only: no snake_case duplicates.
       const res = await submit({
         firstName: data.first_name.trim(),
         lastName: data.last_name.trim(),
@@ -506,7 +506,7 @@ export function FormCard({
           name="project_needs"
           rows={3}
           required
-          placeholder="Project details — scope, rough quantities, timeline"
+          placeholder="Project details: scope, rough quantities, timeline"
           value={data.project_needs}
           onChange={(e) => update("project_needs", e.target.value)}
           onBlur={(e) => markTouched("project_needs", e.target.value)}
@@ -579,7 +579,7 @@ export function FormCard({
       </button>
 
       <p className="text-center text-xs leading-relaxed text-[var(--color-muted)]">
-        No spam — we only use your details to scope and quote your project.
+        No spam: we only use your details to scope and quote your project.
       </p>
     </form>
   );

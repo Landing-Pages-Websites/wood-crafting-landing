@@ -22,7 +22,7 @@ export function useTracking(config: TrackingConfig) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Set MegaTag config (redundant Layer 2 — layout.tsx already sets it)
+    // Set MegaTag config (redundant Layer 2: layout.tsx already sets it)
     if (config.siteKey) {
       window.MEGA_TAG_CONFIG = {
         siteKey: config.siteKey,

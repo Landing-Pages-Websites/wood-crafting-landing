@@ -1,6 +1,6 @@
 import type { JSX, SVGProps } from "react";
 
-// Single icon family — lucide-style stroked SVGs (24×24, currentColor).
+// Single icon family: lucide-style stroked SVGs (24×24, currentColor).
 // Never emoji. Keys map to the `icon` strings used in content.ts.
 
 type IconPaths = JSX.Element;
