@@ -38,7 +38,7 @@ export const HERO = {
   h1Lead: "Authentic reclaimed wood,",
   h1Accent: "supplied at the scale your project demands.",
   subhead:
-    "Wood Crafting is the professional sourcing partner for project-scale reclaimed wood in the Northeast — barn beams, siding, board, and corral fencing pulled from centuries-old structures and milled to your spec. Not a retail lumber yard. Not a DIY marketplace. The material, the volume, and the know-how to spec an entire build.",
+    "Wood Crafting is the professional sourcing partner for project-scale reclaimed wood in the Northeast: barn beams, siding, paneling, board, and corral fencing pulled from centuries-old structures and milled to your spec. Not a retail lumber yard. Not a DIY marketplace. The material, the volume, and the know-how to spec an entire build.",
 };
 
 // ─── Trust / credibility bar ───
