@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
-import { BRAND, CTA, PRODUCT_OPTIONS } from "@/lib/content";
+import { BRAND, PRODUCT_OPTIONS } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 declare global {
@@ -25,6 +25,10 @@ const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
 // Submit-level failure copy. Retryable, and points to email as the fallback path.
 const SUBMIT_ERROR_MESSAGE =
   `Something went wrong sending your request. Please try again, or email us at ${BRAND.email}.`;
+
+// Form-specific submit label. Kept separate from CTA.primary so the header,
+// floating, and section CTAs stay unchanged.
+const FORM_SUBMIT_LABEL = "Get Project Pricing & Availability";
 
 // DOM field keys are snake_case; the submitted payload is mapped to camelCase
 // so there is never a duplicate (e.g. firstName + first_name) in form_data.
@@ -135,7 +139,7 @@ export function FormCard({
   eyebrow = "Request a project quote",
   heading = "Tell us what you're building",
   subheading = "Share your scope and we'll come back with real numbers: species, processing, milling, and volume.",
-  submitLabel = CTA.primary,
+  submitLabel = FORM_SUBMIT_LABEL,
   routeSlug,
   thankYouBody = "Thanks, your project inquiry is in. A member of the Wood Crafting team will review your scope and follow up directly to talk species, processing, and volume.",
   onDark = false,
@@ -310,7 +314,7 @@ export function FormCard({
   const showErr = (k: FieldKey) => Boolean(touched[k] && errors[k]);
   const errId = (k: FieldKey) => `${idPrefix}-${k}-error`;
   const fieldCls =
-    "w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted-soft)] transition-colors focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30";
+    "w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-2.5 lg:py-2 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted-soft)] transition-colors focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/30";
   const inputCls = (k: FieldKey) => `${fieldCls} ${showErr(k) ? "lp-input-error" : ""}`;
 
   return (
@@ -319,7 +323,7 @@ export function FormCard({
       onSubmit={handleNativeSubmit}
       noValidate
       aria-label="Request a project quote"
-      className={`${cardBase} space-y-3.5 p-6 md:p-7`}
+      className={`${cardBase} space-y-2.5 p-6 md:p-7 lg:py-5`}
     >
       <div className="mb-1 space-y-1">
         <p className="eyebrow">{eyebrow}</p>
@@ -381,6 +385,8 @@ export function FormCard({
         </div>
       </div>
 
+      {/* Email + Phone: two-column at desktop, stacked below 1024px */}
+      <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 lg:gap-3">
       {/* Email */}
       <div>
         <label htmlFor={`${idPrefix}-email`} className="sr-only">Work email</label>
@@ -432,7 +438,10 @@ export function FormCard({
           </p>
         )}
       </div>
+      </div>
 
+      {/* Company + Product: two-column at desktop, stacked below 1024px */}
+      <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 lg:gap-3">
       {/* Company (required) */}
       <div>
         <label htmlFor={`${idPrefix}-company`} className="sr-only">
@@ -494,6 +503,7 @@ export function FormCard({
           </p>
         )}
       </div>
+      </div>
 
       {/* Project needs (required textarea) */}
       <div>
@@ -504,7 +514,7 @@ export function FormCard({
           ref={(el) => { fieldRefs.current.project_needs = el; }}
           id={`${idPrefix}-project_needs`}
           name="project_needs"
-          rows={3}
+          rows={2}
           required
           placeholder="Project details: scope, rough quantities, timeline"
           value={data.project_needs}
@@ -523,10 +533,10 @@ export function FormCard({
       </div>
 
       {/* SMS/Text Messaging consent (optional, unchecked by default) */}
-      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5">
+      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5 lg:p-2.5">
         <label
           htmlFor={`${idPrefix}-sms_consent`}
-          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed text-[var(--color-muted)]"
+          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed lg:leading-snug text-[var(--color-muted)]"
         >
           <input
             id={`${idPrefix}-sms_consent`}
@@ -553,7 +563,7 @@ export function FormCard({
             .
           </span>
         </label>
-        <p className="mt-2 pl-6 text-[11px] leading-relaxed text-[var(--color-muted-soft)]">
+        <p className="mt-2 lg:mt-1.5 pl-6 text-[11px] leading-relaxed lg:leading-snug text-[var(--color-muted-soft)]">
           Optional. You may submit this form without consenting to text messages.
         </p>
       </div>
