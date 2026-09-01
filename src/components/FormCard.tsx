@@ -8,9 +8,6 @@ import { Icon } from "@/components/icons";
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
-    MegaTag?: {
-      trackEvent?: (event: string, payload?: Record<string, unknown>) => void;
-    };
   }
 }
 
@@ -156,7 +153,6 @@ export function FormCard({
   // Synchronous re-entrancy guard: blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
   const inFlightRef = useRef(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const fieldRefs = useRef<Partial<Record<FieldKey, HTMLElement | null>>>({});
 
   type TextFieldKey = Exclude<keyof FormState, "sms_consent">;
@@ -190,24 +186,23 @@ export function FormCard({
     });
   };
 
+  // Exactly one explicit, success-gated conversion signal: the GTM
+  // (GTM-PQBFMM3K) dataLayer "form_submission" event. GTM is where Google's
+  // conversion trigger reads from, and this event name is the project's
+  // canonical convention. The Mega optimizer's events-api.gomega.ai channel is
+  // intentionally left untouched (no MegaTag.trackEvent, no native submit) so no
+  // form_submit beacon can fire — on empty clicks or as a duplicate on success.
   const fireTracking = () => {
     if (typeof window === "undefined") return;
-    const route =
-      routeSlug || (typeof window !== "undefined" ? window.location.pathname : "/");
-    // Mega optimizer event FIRST, then the required GTM dataLayer signal.
-    // Fire both the canonical "form_submit" (GTM-PQBFMM3K conversion trigger /
-    // Mega QA) and the legacy "form_submission" name so either trigger works.
-    window.MegaTag?.trackEvent?.("form_submit", { form_route: route });
-    window.MegaTag?.trackEvent?.("form_submission", { form_route: route });
+    const route = routeSlug || window.location.pathname;
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "form_submit", form_route: route });
     window.dataLayer.push({ event: "form_submission", form_route: route });
   };
 
-  // Button click validates FIRST, then calls doSubmit() directly. The click's
-  // native default is prevented in handleSubmitClick, so the optimizer's
-  // capture-phase listener never fires on empty/invalid clicks and no native
-  // submit event is produced here.
+  // The CTA is a plain type="button": its click carries no native form-submit
+  // default, so an empty/invalid click validates and returns without ever
+  // producing a submit DOM event for the optimizer to auto-detect. The network
+  // call runs only through doSubmit(), and only once (guarded below).
   const handleValidateAndSubmit = () => {
     if (inFlightRef.current || submitting || submitted) return;
     const allErrors = validateAll(data);
@@ -242,15 +237,6 @@ export function FormCard({
     e.preventDefault();
   };
 
-  // The button is type="submit" so browsers and automated tooling recognize a
-  // real submit control. We prevent the click's native default here so no
-  // uncontrolled form submission or navigation occurs; validation and the
-  // network call still run only through handleValidateAndSubmit, exactly once.
-  const handleSubmitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    handleValidateAndSubmit();
-  };
-
   const doSubmit = async () => {
     if (inFlightRef.current || submitting || submitted) return;
     inFlightRef.current = true;
@@ -279,14 +265,10 @@ export function FormCard({
       if (res?.ok !== true) {
         throw new Error("Submission not confirmed by server.");
       }
+      // Fire the single canonical conversion signal only after confirmed
+      // {ok:true}. No native/synthetic submit event is dispatched, so the
+      // optimizer never auto-detects a duplicate conversion.
       fireTracking();
-      // The MEGA optimizer also auto-detects the native submit DOM event as a
-      // conversion. Dispatch it only after the lead is CONFIRMED persisted, and
-      // before the success card unmounts the <form>. The form has no action and is
-      // dispatched programmatically, so nothing navigates.
-      formRef.current?.dispatchEvent(
-        new Event("submit", { bubbles: true, cancelable: true })
-      );
       setSubmitted(true);
     } catch (err) {
       console.error("Form submission error:", err);
@@ -329,7 +311,6 @@ export function FormCard({
 
   return (
     <form
-      ref={formRef}
       onSubmit={handleNativeSubmit}
       noValidate
       aria-label="Request a project quote"
@@ -589,8 +570,8 @@ export function FormCard({
       )}
 
       <button
-        type="submit"
-        onClick={handleSubmitClick}
+        type="button"
+        onClick={handleValidateAndSubmit}
         disabled={submitting || submitted}
         className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-6 py-3.5 text-base font-semibold text-white shadow-cta transition-all hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[var(--color-primary-disabled)]"
       >
