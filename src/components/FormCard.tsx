@@ -204,9 +204,10 @@ export function FormCard({
     window.dataLayer.push({ event: "form_submission", form_route: route });
   };
 
-  // Button click validates FIRST, then calls doSubmit() directly. The button is
-  // type="button" so the optimizer's capture-phase listener never fires on
-  // empty/invalid clicks, and no native submit event is produced here.
+  // Button click validates FIRST, then calls doSubmit() directly. The click's
+  // native default is prevented in handleSubmitClick, so the optimizer's
+  // capture-phase listener never fires on empty/invalid clicks and no native
+  // submit event is produced here.
   const handleValidateAndSubmit = () => {
     if (inFlightRef.current || submitting || submitted) return;
     const allErrors = validateAll(data);
@@ -235,10 +236,19 @@ export function FormCard({
   };
 
   // A stray native submit (Enter key inside a field) must never fire the network
-  // call or reach the optimizer's auto-detection. The type="button" click handler
-  // is the only submit entry point.
+  // call or reach the optimizer's auto-detection. The submit button's click
+  // handler is the only submit entry point.
   const handleNativeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+  };
+
+  // The button is type="submit" so browsers and automated tooling recognize a
+  // real submit control. We prevent the click's native default here so no
+  // uncontrolled form submission or navigation occurs; validation and the
+  // network call still run only through handleValidateAndSubmit, exactly once.
+  const handleSubmitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleValidateAndSubmit();
   };
 
   const doSubmit = async () => {
@@ -579,8 +589,8 @@ export function FormCard({
       )}
 
       <button
-        type="button"
-        onClick={handleValidateAndSubmit}
+        type="submit"
+        onClick={handleSubmitClick}
         disabled={submitting || submitted}
         className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-6 py-3.5 text-base font-semibold text-white shadow-cta transition-all hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[var(--color-primary-disabled)]"
       >
