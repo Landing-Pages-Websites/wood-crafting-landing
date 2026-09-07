@@ -67,6 +67,7 @@ const REQUIRED_ORDER: FieldKey[] = [
   "first_name",
   "last_name",
   "email",
+  "phone",
   "company",
   "product_needed",
   "project_needs",
@@ -86,7 +87,7 @@ function validateField(key: FieldKey, value: string): string | undefined {
     }
     case "phone": {
       const digits = value.replace(/\D/g, "");
-      if (!digits) return undefined;
+      if (!digits) return "Phone number is required.";
       if (digits.length !== 10) return "Please enter a valid 10-digit phone number.";
       if (!NANP_RE.test(digits)) return "Please enter a valid US phone number.";
       return undefined;
@@ -212,6 +213,7 @@ export function FormCard({
         first_name: true,
         last_name: true,
         email: true,
+        phone: true,
         company: true,
         product_needed: true,
         project_needs: true,
@@ -404,7 +406,7 @@ export function FormCard({
         )}
       </div>
 
-      {/* Phone (optional) */}
+      {/* Phone (required) */}
       <div>
         <label htmlFor={`${idPrefix}-phone`} className="sr-only">Phone</label>
         <input
@@ -413,6 +415,7 @@ export function FormCard({
           name="phone"
           type="tel"
           inputMode="numeric"
+          required
           autoComplete="tel"
           placeholder="Phone (10 digits)"
           value={data.phone}
