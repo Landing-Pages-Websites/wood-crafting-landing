@@ -327,7 +327,7 @@ export function FormCard({
       </div>
 
       {/* First / Last */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5 lg:gap-3">
         <div>
           <label htmlFor={`${idPrefix}-first_name`} className="sr-only">First name</label>
           <input
@@ -378,8 +378,8 @@ export function FormCard({
         </div>
       </div>
 
-      {/* Email + Phone: two-column at desktop, stacked below 1024px */}
-      <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 lg:gap-3">
+      {/* Email + Phone: two-column at desktop, compact two-column on mobile */}
+      <div className="grid grid-cols-2 gap-2.5 lg:gap-3">
       {/* Email */}
       <div>
         <label htmlFor={`${idPrefix}-email`} className="sr-only">Work email</label>
@@ -434,8 +434,8 @@ export function FormCard({
       </div>
       </div>
 
-      {/* Company + Product: two-column at desktop, stacked below 1024px */}
-      <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 lg:gap-3">
+      {/* Company + Product: two-column at desktop, compact two-column on mobile */}
+      <div className="grid grid-cols-2 gap-2.5 lg:gap-3">
       {/* Company (required) */}
       <div>
         <label htmlFor={`${idPrefix}-company`} className="sr-only">
