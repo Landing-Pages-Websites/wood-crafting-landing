@@ -548,7 +548,7 @@ export function FormCard({
             {/* Concise summary — shown on mobile only while collapsed. Desktop
                 and the expanded mobile state show the full legal language below. */}
             <span className={consentExpanded ? "hidden" : "block lg:hidden"}>
-              Text me customer-care updates about my project inquiry — quote, order,
+              Text me customer-care updates about my project inquiry: quote, order,
               reminders and service. Msg &amp; data rates may apply; reply STOP to opt out.
             </span>
             {/* Full SMS consent language — always visible on desktop; on mobile only
