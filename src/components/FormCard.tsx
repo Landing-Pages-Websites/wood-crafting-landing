@@ -242,9 +242,17 @@ export function FormCard({
     return allErrors;
   };
 
-  // Canonical submit entry (Hard Rule #6): the CTA is type="button", validates
-  // FIRST, and only on a clean form calls formRef.requestSubmit() — so an
-  // empty/invalid click never dispatches a native submit event or a request.
+  // Canonical submit entry (Hard Rule #6): the CTA is type="button" and
+  // validates FIRST. On a clean form it calls doSubmit() DIRECTLY rather than
+  // formRef.requestSubmit(). requestSubmit() dispatches a native submit event,
+  // and the Mega optimizer registers document.addEventListener("submit", …, true)
+  // in the CAPTURE phase — it fires on the way DOWN to the form, before any
+  // React onSubmit or bubble-phase stopPropagation can intercept it, and would
+  // auto-capture that native submit as a second, un-gated conversion. Calling
+  // doSubmit() directly dispatches no submit event at all, so the only
+  // conversion is the explicit success-gated one inside doSubmit(). An
+  // empty/invalid click returns before doSubmit(), so it never requests or
+  // converts.
   const handleValidateAndSubmit = () => {
     if (inFlightRef.current || submitting || submitted) return;
     const allErrors = collectErrors();
@@ -260,24 +268,35 @@ export function FormCard({
       }
       return;
     }
-    formRef.current?.requestSubmit();
+    void doSubmit();
   };
 
-  // The form's native submit handler: prevent the default navigation, then run
-  // the guarded async submission. A stray Enter-key submit re-validates here
-  // (defense in depth) so it can never send an invalid request.
-  //
-  // Stop the native submit from bubbling to the document BEFORE the async work:
-  // the Mega optimizer listens for document-level submit events and would
-  // auto-capture this one as a conversion, duplicating the explicit
-  // success-gated form_submit we fire from doSubmit(). stopImmediatePropagation
-  // on the underlying native event guarantees no document listener ever sees it,
-  // so only the post-success MegaTag/dataLayer signal reaches Mega.
+  // Enter-key path: keep it accessible WITHOUT emitting a native submit event.
+  // Pressing Enter in a single-line <input> would normally trigger the browser's
+  // implicit form submission, which dispatches a native submit event that the
+  // optimizer's document-CAPTURE listener sees before we can cancel it. We
+  // pre-empt that on keydown — before any implicit submit is generated — with
+  // preventDefault(), then route to the same validate-first path as the button.
+  // The textarea is exempt (Enter inserts a newline); buttons, links and the
+  // select keep their own Enter behaviour, so this only catches text inputs.
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key !== "Enter") return;
+    if ((e.target as HTMLElement).tagName !== "INPUT") return;
+    e.preventDefault();
+    handleValidateAndSubmit();
+  };
+
+  // Defense-in-depth ONLY — not the submission funnel. With requestSubmit()
+  // removed and Enter intercepted above, no code path dispatches a native
+  // submit, so this normally never runs. If one ever fires (browser quirk),
+  // block the default navigation. We deliberately do NOT call doSubmit() here:
+  // a native submit has already reached the optimizer's document-CAPTURE
+  // listener (which runs before this bubble-phase React handler), so nothing
+  // here can retract that capture — running doSubmit() would only add a
+  // duplicate. The real, success-gated submission runs from the button/Enter
+  // path via doSubmit().
   const handleNativeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    void doSubmit();
   };
 
   const doSubmit = async () => {
@@ -358,6 +377,7 @@ export function FormCard({
     <form
       ref={formRef}
       onSubmit={handleNativeSubmit}
+      onKeyDown={handleFormKeyDown}
       noValidate
       aria-label="Request a project quote"
       className={`${cardBase} space-y-2.5 p-6 md:p-7 lg:py-5`}
