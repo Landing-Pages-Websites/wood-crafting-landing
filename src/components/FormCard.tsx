@@ -1,23 +1,35 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
+import {
+  useMegaLeadForm,
+  EMAIL_PATTERN,
+  isValidEmail,
+} from "@/hooks/useMegaLeadForm";
 import { BRAND, PRODUCT_OPTIONS } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    // Mega optimizer beacon. Optional so the type is safe when the tag is absent.
+    MegaTag?: {
+      trackEvent?: (event: string, data?: Record<string, unknown>) => void;
+    };
   }
 }
 
 // ─── Validation (inline per-field, no native tooltips) ───
 
-// RFC-5322-lite: the lead API server-validates the rest.
-const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
+// Email uses the canonical fleet regex (isValidEmail) exported by the hook so
+// the UI and the hook-level defense share one source of truth.
 
 // NANP: area code & exchange each start 2-9 and may not be an N11.
 const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
+
+// Canonical formatted-phone pattern for the HTML5 <input pattern={...}> attr:
+// matches the (XXX) XXX-XXXX shape produced by formatPhone().
+const PHONE_PATTERN = "\\(\\d{3}\\) \\d{3}-\\d{4}";
 
 // Submit-level failure copy. Retryable, and points to email as the fallback path.
 const SUBMIT_ERROR_MESSAGE =
@@ -82,7 +94,7 @@ function validateField(key: FieldKey, value: string): string | undefined {
     case "email": {
       const v = value.trim();
       if (!v) return "Email address is required.";
-      if (!EMAIL_RE.test(v)) return "Please enter a valid email address.";
+      if (!isValidEmail(v)) return "Please enter a valid email address.";
       return undefined;
     }
     case "phone": {
@@ -157,6 +169,7 @@ export function FormCard({
   // Synchronous re-entrancy guard: blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
   const inFlightRef = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const fieldRefs = useRef<Partial<Record<FieldKey, HTMLElement | null>>>({});
 
   type TextFieldKey = Exclude<keyof FormState, "sms_consent">;
@@ -190,25 +203,29 @@ export function FormCard({
     });
   };
 
-  // Exactly one explicit, success-gated conversion signal: the GTM
-  // (GTM-PQBFMM3K) dataLayer "form_submission" event. GTM is where Google's
-  // conversion trigger reads from, and this event name is the project's
-  // canonical convention. The Mega optimizer's events-api.gomega.ai channel is
-  // intentionally left untouched (no MegaTag.trackEvent, no native submit) so no
-  // form_submit beacon can fire — on empty clicks or as a duplicate on success.
+  // Success-gated conversion signal, emitted exactly once after a confirmed
+  // {ok:true} lead. Both channels use the canonical "form_submit" event name:
+  // the Mega optimizer beacon (MegaTag) and the GTM (GTM-PQBFMM3K) dataLayer.
+  // Because this fires only from doSubmit()'s success branch — never from a
+  // native/synthetic submit event — no empty click or duplicate can beacon.
   const fireTracking = () => {
     if (typeof window === "undefined") return;
     const route = routeSlug || window.location.pathname;
+    window.MegaTag?.trackEvent?.("form_submit", {
+      form_id: idPrefix,
+      form_route: route,
+    });
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "form_submission", form_route: route });
+    window.dataLayer.push({
+      event: "form_submit",
+      form_id: idPrefix,
+      form_route: route,
+    });
   };
 
-  // The CTA is a plain type="button": its click carries no native form-submit
-  // default, so an empty/invalid click validates and returns without ever
-  // producing a submit DOM event for the optimizer to auto-detect. The network
-  // call runs only through doSubmit(), and only once (guarded below).
-  const handleValidateAndSubmit = () => {
-    if (inFlightRef.current || submitting || submitted) return;
+  // Marks every required field touched and surfaces its errors. Returns true
+  // when the form is clean. Shared by the button and the native-submit guard.
+  const collectErrors = (): FieldErrors => {
     const allErrors = validateAll(data);
     if (Object.keys(allErrors).length > 0) {
       setErrors(allErrors);
@@ -221,6 +238,17 @@ export function FormCard({
         product_needed: true,
         project_needs: true,
       });
+    }
+    return allErrors;
+  };
+
+  // Canonical submit entry (Hard Rule #6): the CTA is type="button", validates
+  // FIRST, and only on a clean form calls formRef.requestSubmit() — so an
+  // empty/invalid click never dispatches a native submit event or a request.
+  const handleValidateAndSubmit = () => {
+    if (inFlightRef.current || submitting || submitted) return;
+    const allErrors = collectErrors();
+    if (Object.keys(allErrors).length > 0) {
       const firstBad = REQUIRED_ORDER.find((k) => allErrors[k]);
       if (firstBad) {
         const el = fieldRefs.current[firstBad];
@@ -232,18 +260,20 @@ export function FormCard({
       }
       return;
     }
-    void doSubmit();
+    formRef.current?.requestSubmit();
   };
 
-  // A stray native submit (Enter key inside a field) must never fire the network
-  // call or reach the optimizer's auto-detection. The submit button's click
-  // handler is the only submit entry point.
+  // The form's native submit handler: prevent the default navigation, then run
+  // the guarded async submission. A stray Enter-key submit re-validates here
+  // (defense in depth) so it can never send an invalid request.
   const handleNativeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    void doSubmit();
   };
 
   const doSubmit = async () => {
     if (inFlightRef.current || submitting || submitted) return;
+    if (Object.keys(collectErrors()).length > 0) return;
     inFlightRef.current = true;
     setSubmitting(true);
     setSubmitError(null);
@@ -281,7 +311,8 @@ export function FormCard({
       // error and fire NO tracking so we never bill a phantom conversion.
       setSubmitError(SUBMIT_ERROR_MESSAGE);
     } finally {
-      inFlightRef.current = false;
+      // Do NOT reset inFlightRef: one confirmed-or-attempted submission per page
+      // instance (Hard Rule #7) so no duplicate lead or conversion can fire.
       setSubmitting(false);
     }
   };
@@ -316,6 +347,7 @@ export function FormCard({
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleNativeSubmit}
       noValidate
       aria-label="Request a project quote"
@@ -392,6 +424,8 @@ export function FormCard({
           name="email"
           type="email"
           required
+          pattern={EMAIL_PATTERN}
+          title="Enter a valid email address (e.g. you@company.com)"
           autoComplete="email"
           placeholder="Work email"
           value={data.email}
@@ -419,6 +453,8 @@ export function FormCard({
           type="tel"
           inputMode="numeric"
           required
+          pattern={PHONE_PATTERN}
+          title="Enter a valid 10-digit US phone number, e.g. (555) 123-4567"
           autoComplete="tel"
           placeholder="Phone (10 digits)"
           value={data.phone}

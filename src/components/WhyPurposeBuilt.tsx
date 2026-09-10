@@ -12,9 +12,9 @@ export function WhyWoodCrafting(): React.ReactElement {
       id="why"
       className="relative isolate overflow-hidden bg-[var(--color-charcoal)] py-20 text-white md:py-28"
     >
-      <div className="absolute inset-0 -z-10 tex-grain opacity-30" />
+      <div className="absolute inset-0 z-0 tex-grain opacity-30" />
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
         {/* Why us */}
         <Reveal className="max-w-3xl">
           <p className="eyebrow text-[var(--color-primary)]">Why Wood Crafting</p>

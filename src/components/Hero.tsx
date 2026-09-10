@@ -13,7 +13,7 @@ export function Hero(): React.ReactElement {
       className="relative isolate overflow-hidden bg-[var(--color-charcoal-deep)] pt-20 md:pt-32 pb-12 md:pb-24"
     >
       {/* Reclaimed-barn estate at dusk + charcoal scrim */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-reclaimed-barn.jpg"
           alt="Reclaimed-wood barn estate at dusk with warmly lit windows"
@@ -27,7 +27,7 @@ export function Hero(): React.ReactElement {
         <div className="absolute inset-0 tex-grain opacity-40" />
       </div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-5 md:px-8 lg:grid-cols-2 lg:gap-14">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-5 md:px-8 lg:grid-cols-2 lg:gap-14">
         {/* Copy */}
         <div className="order-1 lg:pt-6">
           <Reveal className="space-y-4 md:space-y-6">

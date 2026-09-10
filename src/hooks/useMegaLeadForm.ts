@@ -129,6 +129,16 @@ const initAttribution = (): Attribution => {
   return attr;
 };
 
+// ─── Email validation — RFC-5322-lite (landing-page-forms Hard Rule #4b) ───
+// EMAIL_PATTERN is un-anchored for HTML5 <input pattern={...}> (the browser
+// applies its own ^…$ anchors and rejects a literal ^/$ in the attribute).
+// EMAIL_REGEX is anchored for JS-side isValidEmail() checks.
+export const EMAIL_PATTERN =
+  "[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}";
+export const EMAIL_REGEX = new RegExp(`^${EMAIL_PATTERN}$`);
+export const isValidEmail = (value: unknown): boolean =>
+  typeof value === "string" && EMAIL_REGEX.test(value.trim());
+
 interface UseMegaLeadFormReturn {
   submit: (formData: Record<string, unknown>) => Promise<SubmissionResponse>;
   isReady: boolean;
@@ -161,6 +171,11 @@ export const useMegaLeadForm = (): UseMegaLeadFormReturn => {
       }
       if (!formData.firstName || !formData.email) {
         throw new Error("firstName and email are required");
+      }
+      // Reject invalid email before any network call (defense in depth: catches
+      // programmatic submits that bypass the UI-level pattern check).
+      if (!isValidEmail(formData.email)) {
+        throw new Error("Enter a valid email address");
       }
 
       const attribution = initAttribution();

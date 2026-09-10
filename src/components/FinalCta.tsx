@@ -11,10 +11,10 @@ export function FinalCta(): React.ReactElement {
       id="quote"
       className="relative isolate overflow-hidden bg-[var(--color-primary)] py-20 text-white md:py-28"
     >
-      <div className="absolute inset-0 -z-10 tex-grain opacity-20" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)]" />
+      <div className="absolute inset-0 z-0 tex-grain opacity-20" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)]" />
 
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/80">
