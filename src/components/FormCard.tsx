@@ -266,8 +266,17 @@ export function FormCard({
   // The form's native submit handler: prevent the default navigation, then run
   // the guarded async submission. A stray Enter-key submit re-validates here
   // (defense in depth) so it can never send an invalid request.
+  //
+  // Stop the native submit from bubbling to the document BEFORE the async work:
+  // the Mega optimizer listens for document-level submit events and would
+  // auto-capture this one as a conversion, duplicating the explicit
+  // success-gated form_submit we fire from doSubmit(). stopImmediatePropagation
+  // on the underlying native event guarantees no document listener ever sees it,
+  // so only the post-success MegaTag/dataLayer signal reaches Mega.
   const handleNativeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     void doSubmit();
   };
 
