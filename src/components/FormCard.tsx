@@ -162,9 +162,6 @@ export function FormCard({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  // Mobile-only: the full SMS legal text is collapsed behind a disclosure so the
-  // submit control stays within the first viewport. Desktop always shows it in full.
-  const [consentExpanded, setConsentExpanded] = useState(false);
 
   // Synchronous re-entrancy guard: blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
@@ -186,10 +183,6 @@ export function FormCard({
       delete next[key];
       return next;
     });
-  };
-
-  const updateSmsConsent = (checked: boolean) => {
-    setData((d) => ({ ...d, sms_consent: checked }));
   };
 
   const markTouched = (k: FieldKey, currentValue: string) => {
@@ -319,6 +312,8 @@ export function FormCard({
         smsConsentText: data.sms_consent
           ? "I agree to receive customer-care SMS/text messages from Wood Crafting LLC about my project inquiry, quote, order, appointments, reminders, and service updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase."
           : "Not provided",
+        // Sole snake_case exception: mandated SMS compat key, always false (no opt-in UI).
+        sms_consent: false,
         routeSlug:
           routeSlug ||
           (typeof window !== "undefined" ? window.location.pathname : "/"),
@@ -592,66 +587,6 @@ export function FormCard({
             {errors.project_needs}
           </p>
         )}
-      </div>
-
-      {/* SMS/Text Messaging consent (optional, unchecked by default) */}
-      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-2)] p-3.5 lg:p-2.5">
-        <label
-          htmlFor={`${idPrefix}-sms_consent`}
-          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed lg:leading-snug text-[var(--color-muted)]"
-        >
-          <input
-            id={`${idPrefix}-sms_consent`}
-            name="sms_consent"
-            type="checkbox"
-            checked={data.sms_consent}
-            onChange={(e) => updateSmsConsent(e.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-primary)]"
-            disabled={submitting}
-          />
-          <span>
-            {/* Concise summary — shown on mobile only while collapsed. Desktop
-                and the expanded mobile state show the full legal language below. */}
-            <span className={consentExpanded ? "hidden" : "block lg:hidden"}>
-              Text me customer-care updates about my project inquiry: quote, order,
-              reminders and service. Msg &amp; data rates may apply; reply STOP to opt out.
-            </span>
-            {/* Full SMS consent language — always visible on desktop; on mobile only
-                once expanded. Preserved verbatim for legal completeness. */}
-            <span
-              id={`${idPrefix}-sms_consent_full`}
-              className={consentExpanded ? "block lg:block" : "hidden lg:block"}
-            >
-              I agree to receive customer-care SMS/text messages from Wood Crafting LLC
-              about my project inquiry, quote, order, appointments, reminders, and service
-              updates. Message frequency varies. Message and data rates may apply. Reply
-              STOP to opt out or HELP for help. Consent is not a condition of purchase.
-              View our{" "}
-              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
-                Privacy Policy
-              </a>{" "}
-              and{" "}
-              <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-primary)] underline">
-                Terms of Service
-              </a>
-              .
-            </span>
-          </span>
-        </label>
-        {/* Mobile-only disclosure control. Full terms are always on-screen at lg,
-            so the toggle is hidden there. Expanding never submits or tracks. */}
-        <button
-          type="button"
-          onClick={() => setConsentExpanded((v) => !v)}
-          aria-expanded={consentExpanded}
-          aria-controls={`${idPrefix}-sms_consent_full`}
-          className="mt-2 pl-6 text-[11px] font-semibold text-[var(--color-primary)] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 lg:hidden"
-        >
-          {consentExpanded ? "Hide full SMS terms" : "Read full SMS terms, Privacy Policy & Terms"}
-        </button>
-        <p className="mt-2 lg:mt-1.5 pl-6 text-[11px] leading-relaxed lg:leading-snug text-[var(--color-muted-soft)]">
-          Optional. You may submit this form without consenting to text messages.
-        </p>
       </div>
 
       {submitError && (
